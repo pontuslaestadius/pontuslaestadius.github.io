@@ -1,0 +1,121 @@
+* {
+    transition: 0.13s ease;
+}
+
+menu-left {
+    transition: left 0.4s 0.3s;
+}
+content {
+    transition: margin 0.4s 0.3s;
+}
+
+menu-left {
+    position: fixed;
+    left: -190px;
+    top: 0;
+    height: 100vh;
+    width: 190px;
+    color: white;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#162618+0,162618+71,0e2310+99 */
+background: #162618; /* Old browsers */
+background: -moz-linear-gradient(left, #162618 0%, #162618 71%, #0e2310 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, #162618 0%,#162618 71%,#0e2310 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, #162618 0%,#162618 71%,#0e2310 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162618', endColorstr='#0e2310',GradientType=1 ); /* IE6-9 */
+}
+
+.menu-loaded {
+    left: 0;
+    margin-left: 0;
+}
+
+item, sub-item {
+    width: 100%;
+    float: left;
+}
+
+item, sub-item, item label {
+    cursor: pointer;
+}
+
+item label {
+    padding: 0.2em 0.3em;
+}
+
+sub-item {
+    padding: 0em 0.4em;
+    font-size: 14px;
+    height: 0px;
+    overflow: hidden;
+}
+
+sub-item:not(.active) {
+    background-color: rgb(180, 180, 180);
+}
+
+sub-item .active {
+    background-color: rgb(180, 180, 180) !important;
+}
+
+item:hover sub-item:last-child {
+    border-bottom: 2px solid rgb(50, 50, 50);
+}
+
+.active > sub-item, item:hover > sub-item, .sub-active > sub-item {
+    height: 20px;
+}
+
+.sub-active, .active, item:hover > sub-item {
+    color: rgb(25, 25, 25);
+}
+
+.sub-active {
+    background-color: rgb(150, 150, 150);
+}
+
+.active {
+    background-color: rgb(200, 200, 200);
+}
+
+content, section, p, h1, h2 {
+    float: left;
+    padding: 0.1em 0.8em;
+    clear: both;
+}
+
+h1 {
+    color: rgb(20, 20, 20);
+    font-size: 24px;
+}
+
+h2 {
+    color: rgb(30, 30, 30); 
+    font-size: 18px;
+    padding-left: 2em;
+}
+
+p {
+    font-family: 'Arvo', serif;
+    padding: 0.3em 2em;
+}
+
+body {
+    background: rgb(255, 240, 235);
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d7dbaf+0,f9f5d1+42,f9f5d1+100 */
+    background: -moz-linear-gradient(left, #d7dbaf 0%, #f9f5d1 42%, #f9f5d1 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #d7dbaf 0%,#f9f5d1 42%,#f9f5d1 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #d7dbaf 0%,#f9f5d1 42%,#f9f5d1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+content {
+    padding-left: 190px;
+    margin-left: -190px;
+    font-family: 'Crete Round', serif;
+    width: calc(100% - 170px);
+}
+
+section {
+    width: 100%;
+}
