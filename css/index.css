@@ -31,7 +31,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162618', end
     margin-left: 0;
 }
 
-item, sub-item {
+settings, icon, item, sub-item {
     width: 100%;
     float: left;
 }
@@ -118,4 +118,45 @@ content {
 
 section {
     width: 100%;
+}
+
+settings {
+    padding: 0.5em 0 1em 0.5em;
+}
+
+icon {
+    cursor: pointer;
+    color: white;
+    height: 20px;
+    font-size: 24px;
+    width: 95px;
+}
+
+icon * {
+    position: absolute;
+    font-style: normal;
+}
+
+icon .secondary {
+    color: rgb(130, 210, 210);
+}
+
+icon .h {
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+
+icon .vh {
+    -moz-transform: scale(-1, -1);
+    -webkit-transform: scale(-1, -1);
+    -o-transform: scale(-1, -1);
+    -ms-transform: scale(-1, -1);
+    transform: scale(-1, -1);
+}
+
+icon z {
+    font-size: 12px;
 }
