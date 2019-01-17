@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Header from './header.js';
 import './style.css';
 import FancySection from './fancy/component.js';
-
-function title_parse(title) {
-    return title.toLowerCase().replace(/\s/g, '_');
-}
-
-function Header(props) {
-    return React.createElement(
-        props.type ? props.type : 'h1',
-        {id: title_parse(props.title), dangerouslySetInnerHTML: {__html: props.title}}
-    );
-}
 
 function Section(props) {
     return (
@@ -25,7 +15,7 @@ function Section(props) {
     );
 }
 
-class App extends Component {
+class Content extends Component {
     constructor(props) {
         super(props);
         let self = this;
@@ -34,15 +24,15 @@ class App extends Component {
             if (!self.state.sorted_headers) {
                 let headers = [];
                 document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(header => {
-                    let dom = document.querySelector(`.menu-item[data-ref='#${title_parse(header.innerHTML)}']`);
+                    let ref = header.innerHTML.toLowerCase().replace(/\s/g, '_');
+                    let dom = document.querySelector(`.menu-item[data-ref="#${ref}"]`);
                     if (!dom) return;
-                    let section_height = parseInt(getComputedStyle(header).height) *3;
                     headers.push({
                         dom: dom,
-                        top: header.getBoundingClientRect().top + window.scrollY + section_height
+                        top: header.getBoundingClientRect().top + window.scrollY -29
                     });
                 });
-                const cmp=(a,b)=>a.top===b.top?0:a.top>b.top?1:-1;
+                const cmp=(a,b)=>a.top===b.top?0:a.top<b.top?1:-1;
                 headers.sort(cmp);
                 self.setState({sorted_headers: headers});
                 console.log(`MenuItems linked to headers: ${headers.length}`);
@@ -50,22 +40,17 @@ class App extends Component {
             let y = event.pageY || window.scrollY;
 
             for (const header of self.state.sorted_headers) {
-                // If the header has already been passed.
-                if (y > header.top) continue;
-                // If we already have a highlighted menu item.
+                if (header.top > y) continue;
                 let active = self.state.active;
-                const parent = _ => active.parentNode.parentNode;
-                if (active && active !== header.dom) {
-                    active.classList.remove('active');
-                    if (parent().classList.contains('menu-item')) {
-                        parent().classList.remove('sub-active');
-                    }
-                } else if (active === header.dom) break;
-                active = header.dom;
-                header.dom.classList.add('active');
-                if (parent().classList.contains('menu-item')) {
-                    parent().classList.add('sub-active');
+                if (active === header.dom) break;
+                const set = fn => {
+                    active.classList[fn]('active');
+                    if (active.parentNode.parentNode.classList.contains('menu-item'))
+                        active.parentNode.parentNode.classList[fn]('sub-active');
                 }
+                if (active) set('remove');
+                active = header.dom;
+                set('add');
                 self.setState({active: active});
                 break;
             }
@@ -76,8 +61,8 @@ class App extends Component {
 
     render() {
         return (
-            <div className="content" onScroll={this.listenScrollEvent}>
-                <Section title={"Introduction"} content={
+            <div className='content' onScroll={this.listenScrollEvent}>
+                <Section title='Introduction' content={
                     <React.Fragment>
                         <p>
                             <b>Hi, </b>
@@ -89,7 +74,7 @@ class App extends Component {
                             <br></br>
                         </p>
 
-                        <Header type={'h2'} title={'About me'} />
+                        <Header type='h2' title='About me' />
                         <p>
                             I am a 3rd year Software Engineering & Management Student at Gothenbourg University.
                             I also intern part-time at Ericsson, but a lot of my spare-time revolves around
@@ -154,6 +139,30 @@ class App extends Component {
             </React.Fragment>
         } />
 
+        <FancySection title='this page' background='bionic' images={
+            <React.Fragment>
+            </React.Fragment>
+        } links={
+            <React.Fragment>
+                <a href='https://github.com/pontuslaestadius/pontuslaestadius.github.io/tree/develop'>
+                    <FontAwesomeIcon icon='code-branch' />
+                </a>
+            </React.Fragment>
+        } description={
+            <React.Fragment>
+                <p>
+                    This static web page is developed using <a href='https://reactjs.org/'>React</a>.
+                </p>
+            </React.Fragment>
+        } />
+    <Section title={"Blog"} content={
+        <React.Fragment>
+            <p>
+                Here are entries regarding programming related topics I feel the need to share my opinion on.
+            </p>
+        </React.Fragment>
+    }/>
+
         <Section title={"Contact"} content={
             <React.Fragment>
                 <Header type='h2' title='Github' />
@@ -164,7 +173,7 @@ class App extends Component {
 
                 <Header type='h2' title='Email' />
                 <p>
-                    For any questions, concerns or work. <a href='javascript:window.location.href = "mailto:" + ["pontuslaestadius", "mail.com"].join("@g")'>
+                    For any questions, concerns or work. <a href='javascript:window.location.href = "mailto:" + ["pontus.laestadius", "ail.com"].join("@gm")'>
                         Contact me by email
                     </a>.
                 </p>
@@ -179,4 +188,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Content;

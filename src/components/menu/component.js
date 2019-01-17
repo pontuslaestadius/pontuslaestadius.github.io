@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Settings from './settings/component.js';
 import MenuItem from './menuitem/component.js';
+import Mobile from 'is-mobile';
 import './style.css';
 
 class Menu extends Component {
@@ -10,6 +11,12 @@ class Menu extends Component {
             menuItems: (props.menuItems || []).map(x =>
                 <MenuItem {...x} />
         )};
+    }
+
+    componentDidMount() {
+        if (Mobile()) {
+            document.querySelector('nav').classList.add('small');
+        }
     }
 
     render() {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './../header.js'
 import './style.css';
 
 class FancySection extends Component {
@@ -20,7 +21,7 @@ class FancySection extends Component {
                         <div className='section-lr'>
                             <div className='section-left'>
                                 <div className='section-left-header'>
-                                    <h1>{this.state.title}</h1>
+                                    <Header title={this.state.title} />
                                     <div className='section-links'>
                                         {this.state.links}
                                     </div>

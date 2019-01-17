@@ -39,11 +39,13 @@ class MenuItem extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className='menu-item' onClick={this.state.onClick} data-ref={this.state.ref}>
-                    <i title={this.state.title}>
-                        <FontAwesomeIcon icon={this.state.icon} />
-                    </i>
-                    <span>{this.state.label}</span>
+                <div className='menu-item' data-ref={this.state.ref}>
+                    <div className='menu-item-wrapper' onClick={this.state.onClick}>
+                        <i title={this.state.title}>
+                            <FontAwesomeIcon icon={this.state.icon} />
+                        </i>
+                        <span>{this.state.label}</span>
+                    </div>
                     <SubMenu items={this.state.subMenu} key={'none'} />
                 </div>
             </React.Fragment>

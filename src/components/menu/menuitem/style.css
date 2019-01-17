@@ -11,11 +11,18 @@
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
 }
-.menu-item:hover {
+.menu-item span:hover {
     text-decoration: underline;
 }
+.menu-item-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
 
-.menu-item span {
+.menu-item-wrapper span {
+    position: absolute;
     padding: 4px 8px;
 }
 
@@ -53,7 +60,10 @@ nav .menu-item .sub-menu .menu-item {
 {
     opacity: 1;
 }
-.menu-item:hover > .sub-menu {
+.menu-item:hover > .sub-menu,
+.active > .sub-menu,
+.sub-active > .sub-menu
+{
     max-height: 500px;
 }
 .sub-active, .sub-menu {
@@ -63,10 +73,4 @@ nav .menu-item .sub-menu .menu-item {
 .active {
     color: rgb(20, 20, 20) !important;
     background: rgb(205, 205, 205);
-}
-.active > .sub-menu {
-    max-height: 500px;
-}
-.sub-active > .sub-menu {
-    max-height: 500px;
 }

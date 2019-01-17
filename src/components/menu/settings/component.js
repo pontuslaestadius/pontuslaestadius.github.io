@@ -16,9 +16,6 @@ function Icon() {
 class Settings extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            nav: true
-        };
     }
 
     render() {
@@ -28,8 +25,7 @@ class Settings extends Component {
                 <MenuItem icon='igloo' title='home' href={'#root'} label={icon} />
                 <MenuItem icon='bars' label="Small sidebar" onClick={e => {
                     let node = document.querySelector('nav');
-                    node.classList[this.state.nav?'add':'remove']('small');
-                    this.setState({nav: !this.state.nav});
+                    node.classList[node.classList.contains('small')?'remove':'add']('small');
                 }}/>
         </div>
         );
