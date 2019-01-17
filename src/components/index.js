@@ -2,7 +2,8 @@ let h1 = [];
 let active = null;
 const list = document.querySelector('menu-left');
 const cmp=(a,b)=>a.top==b.top?0:a.top>b.top?1:-1;
-document.querySelectorAll('section').forEach(section => {
+
+document.querySelectorAll('.section').forEach(section => {
     let headline = section.querySelector('h1');
     let item = document.createElement('item');
     item.innerHTML = `<label>${headline.innerHTML}</label>`;
@@ -38,6 +39,3 @@ window.onscroll = x => {
         break;
     }
 };
-
-document.querySelector('menu-left').classList.add('menu-loaded');
-document.querySelector('content').classList.add('menu-loaded');

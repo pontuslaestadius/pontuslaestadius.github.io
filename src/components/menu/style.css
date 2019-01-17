@@ -1,0 +1,25 @@
+nav {
+    background: -moz-linear-gradient(left, #162618 0%, #162618 71%, #0e2310 99%);
+    background: -webkit-linear-gradient(left, #162618 0%, #162618 71%, #0e2310 99%);
+    background: #162618;
+    background: linear-gradient(to right, #162618 0%, #162618 71%, #0e2310 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@color0', endColorstr='@color2', GradientType=1);
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 190px;
+    transition: width 0.2s ease-in-out;
+}
+nav.hidden {
+    width: 0;
+}
+nav.small {
+    width: 40px;
+}
+nav.small > .menu-item .sub-menu-indicator {
+    opacity: 0.0;
+}
