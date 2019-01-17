@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import './style.css';
+import React, {
+    Component
+} from 'react';
 
 class Header extends Component {
     constructor(props) {
@@ -11,10 +12,11 @@ class Header extends Component {
     }
     render() {
         return React.createElement(
-            'h1',
-            {id:
-                this.state.title.toLowerCase().replace(/\s/g, '_'),
-                dangerouslySetInnerHTML: {__html: this.state.title}
+            'h1', {
+                id: this.state.title.toLowerCase().replace(/\s/g, '_'),
+                dangerouslySetInnerHTML: {
+                    __html: this.state.title
+                }
             }
         );
     }

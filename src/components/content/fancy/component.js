@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import Header from './../header.js'
-import './style.css';
 
 class FancySection extends Component {
     constructor(props) {
@@ -14,27 +15,42 @@ class FancySection extends Component {
         };
     }
     render() {
-        return (
-            <div className='section section-large' data-background={this.state.background}>
-                <React.Fragment>
-                    <div className='section-image-wrapper'>
-                        <div className='section-lr'>
-                            <div className='section-left'>
-                                <div className='section-left-header'>
-                                    <Header title={this.state.title} />
-                                    <div className='section-links'>
-                                        {this.state.links}
-                                    </div>
-                                </div>
-                                {this.state.description}
-                            </div>
-                            <div className='section-right'>
-                                {this.state.images}
-                            </div>
-                        </div>
-                    </div>
-                </React.Fragment>
-            </div>
+        return ( <
+            div className = 'section section-large'
+            data-background = {
+                this.state.background
+            } >
+            <
+            React.Fragment >
+            <
+            div className = 'section-image-wrapper' >
+            <
+            div className = 'section-lr' >
+            <
+            div className = 'section-left' >
+            <
+            div className = 'section-left-header' >
+            <
+            Header title = {
+                this.state.title
+            }
+            /> <
+            div className = 'section-links' > {
+                this.state.links
+            } <
+            /div> < /
+            div > {
+                this.state.description
+            } <
+            /div> <
+            div className = 'section-right' > {
+                this.state.images
+            } <
+            /div> < /
+            div > <
+            /div> < /
+            React.Fragment > <
+            /div>
         );
     }
 }
