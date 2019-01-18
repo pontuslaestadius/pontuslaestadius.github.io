@@ -5,8 +5,8 @@
 $gradient1:#e8e5d7;
 $gradient2:#fffced;
 
-$break-large:1024px;
-$break-medium:740px;
+$break-large:75rem;
+$break-medium:50rem;
 
 body.dark {
   background: rgb(40, 40, 40);
@@ -14,6 +14,21 @@ body.dark {
 
   a, a:visited {
     color: rgb(100, 200, 250);
+  }
+
+  .section-links a {
+    color:#e6e6e6!important;
+  }
+
+  img {
+    opacity:0.8;
+    &:hover {
+      opacity:1;
+    }
+  }
+
+  .content .section-large[data-background='bionic'] {
+    background-color:#2e4c16;
   }
 }
 
@@ -250,6 +265,8 @@ nav {
   padding-left:190px;
   transition:.2s ease-in-out;
   width:calc(100% - 190px);
+  margin:0 auto;
+  max-width:70rem;
 
   .section {
     clear:both;
@@ -284,6 +301,10 @@ nav {
         background:rgba(35,35,35,0.9);
         color:#e6e6e6;
       }
+    }
+
+    &[data-background='bionic'] {
+      background-color:#88db43;
     }
 
     &.section-large {

@@ -51,7 +51,8 @@ class Content extends Component {
         active = header.dom;
         set("add");
         self.setState({
-          active: active
+          active: active,
+          sorted_headers: false
         });
         break;
       }
@@ -69,32 +70,22 @@ class Content extends Component {
             <React.Fragment>
               <p>
                 <b> Hi,</b> <br />
-                This
-                <a href="https://pontuslaestadius.github.io">
-                  
-                  github.io page
-                </a>
-                groups all my projects, another reference table can be found
-                <a href="https://github.com/pontuslaestadius/portfolio">
-                  
-                  here
-                </a>
-                . This page will consist of project writeups and a programming
-                related blog. <br />
+                This github.io page groups all my projects, another reference table can be found <a href="https://github.com/pontuslaestadius/portfolio">here</a>. This page will consist of project writeups and a programming related blog. <br />
               </p>
               <Header type="h2" title="About me" />
               <p>
-                I am a 3 rd year Software Engineering & Management Student at
-                Gothenbourg University. I also intern part - time at Ericsson,
-                but a lot of my spare - time revolves around learning new
-                Programming languages, tools, algorithms and useful skills.
+                I am a 3rd year Software Engineering & Management Student at Gothenbourg University. I also intern part-time at Ericsson, but a lot of my sparetime revolves around learning new Programming languages, tools, algorithms and useful skills.
               </p>
             </React.Fragment>
           }
         />
         <Section
           title={"Projects"}
-          content={"Here are a list of projects I've published and developed."}
+          content={
+            <p>
+              Here are a list of highlighted projects I have developed. Keep in mind these are often proof of concepts when experimenting with new techonologies which I am exercising.
+            </p>
+          }
         />
         <FancySection
           title="pathfinder"
@@ -128,18 +119,14 @@ class Content extends Component {
           description={
             <React.Fragment>
               <p>
-                Pathfinder is a Node based graphics library for generating
-                images and gifs with connected nodes.
+                Pathfinder is a Node based graphics library for generating images and gifs with connected nodes.
               </p>
               <p>
-                A two year project which is still in progress, with 1400 +
-                downloads.
+                A two year project which is still in progress, with 1400+ downloads. It was the first semi-large Rust project which taught me many advantages of programming in Rust.
               </p>
               <p>
-                First semi - large Rust project which taught my many language
-                specific features.
+                The images shown are example outputs from the library. And can be located along with the example code that generated them in the github repository. Click the Code-branch indicator next to the 'pathfinder' to get there.
               </p>
-              <p>The images shown are example outputs from the library. </p>
             </React.Fragment>
           }
         />
@@ -164,13 +151,26 @@ class Content extends Component {
                 It tests the bounderies of what can be done in your.js files
                 when tests are run from a rust module.
               </p>
+              <p>
+                I wanted to see if it was feasible to generate javascript code from comments, there was a few issues because javascript functions can be very abstractly defined.
+              </p>
+              <p>
+                It remains a proof of concept since no one would integrated a Rust service to test your vanillia Javascript or Node projects.
+              </p>
+              <p>
+                It is thus adviced that such functionality would be implemented in a seperate npm package, if one does not already exist. But that results in it not being as adept for vanila javascript which is a requirement when doing development in the <a href='https://developer.tizen.org/'>Tizen sdk</a>. Which of course you could compile your code down to ES3 standard to support, so there are many counter arguments towards not continuing with this.
+              </p>
             </React.Fragment>
           }
         />
         <FancySection
           title="this page"
           background="bionic"
-          images={<React.Fragment />}
+          images={
+            <React.Fragment>
+              <img alt="Gimpified render of the site" src="resources/site.gif" />
+            </React.Fragment>
+          }
           links={
             <React.Fragment>
               <a href="https://github.com/pontuslaestadius/pontuslaestadius.github.io/tree/develop">
@@ -181,8 +181,19 @@ class Content extends Component {
           description={
             <React.Fragment>
               <p>
-                This static web page is developed using
-                <a href="https://reactjs.org/"> React </a>.
+                This static web page is developed using <a href="https://reactjs.org/"> React</a>.
+              </p>
+              <p>
+                It was developed in a week, between week 2 and week 3 of 2019. In an attempt to get familiar with React and better show off previous projects, thus it being the focus of the page.
+              </p>
+              <p>
+                The menu was tedious to develop but I am quite happy about the resulting product, it has shown issues in self selecting the menu item based on scrolling in Firefox. And it at times be improperly offset.
+              </p>
+              <p>
+                It <i>tries</i> to only use JavaScript for non-required browsing features. I do realize this is not optimal being a React static page, but I do think it's an important design philosofy.
+              </p>
+              <p>
+                Reiterating on the menu features, including an icon made using only Text and CSS. Which I thought was pretty fun to create, but obviously not optimal for browsers which might render it differently. Additionally the <b>dark mode</b> uses a very browser compatible way of setting the body tag which then inherits to the children when enabled. It's not optimal but it is a viable solution while waiting for all browsers to offically support prefer-dark-scheme CSS query.
               </p>
             </React.Fragment>
           }
