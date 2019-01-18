@@ -2,10 +2,11 @@
 
 @import "https://fonts.googleapis.com/css?family=PT+Sans|Roboto+Slab";
 
-$gradient1: #e8e5d7;
-$gradient2: #fffced;
+$gradient1:#e8e5d7;
+$gradient2:#fffced;
 
-$break-large: 1024px;
+$break-large:1024px;
+$break-medium:740px;
 
 body.dark {
   background: rgb(40, 40, 40);
@@ -34,16 +35,12 @@ h2 {
   padding:.1em .8em;
 }
 
-p {
-  max-width:700px;
-}
-
 h1 {
-  font-size:24px;
+  font-size:1.4rem;
 }
 
 h2 {
-  font-size:18px;
+  font-size:1.3rem;
   padding-left:2em;
 }
 
@@ -53,6 +50,8 @@ h1,h2,h3,h4,h5,h6 {
 
 p {
   font-family:'Roboto Slab',serif;
+  font-size: 1rem;
+  max-width:700px;
 }
 
 a,a:visited {
@@ -71,14 +70,15 @@ body {
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
   margin:0;
   padding:0;
-}
+  font-size:15px;
 
-.h {
-  transform:scale(-1,1);
+  @media screen and (max-width: $break-large) {
+    font-size:14px;
+  }
 }
 
 br {
-  margin-bottom:15px;
+  margin-bottom:1rem;
 }
 
 code {
@@ -116,7 +116,7 @@ code {
 .icon {
   color:#fff;
   cursor:pointer;
-  font-size:24px;
+  font-size:1.6rem;
 
   div {
     font-style:normal;
@@ -144,48 +144,6 @@ code {
   }
 }
 
-.fa-interface {
-  border:1px solid red;
-  display:flex;
-  float:right;
-  height:40px;
-  width:100%;
-
-  svg {
-    cursor:pointer;
-    font-size:24px;
-    padding:10px;
-    transition:.15s linear;
-
-    &:hover {
-      background:rgba(255,255,255,0.2);
-    }
-  }
-}
-
-.settings {
-  float:left;
-  width:100%;
-
-  .fas {
-    color:#fff;
-    cursor:pointer;
-    opacity:.8;
-    position:absolute;
-
-    &:hover {
-      background:rgba(255,255,255,0.2);
-      opacity:1;
-    }
-  }
-
-  .light {
-    font-size:18px;
-    margin:-8px 0 0 17px;
-    padding:13px;
-  }
-}
-
 nav {
   background:-moz-linear-gradient(left,#162618 0%,#162618 71%,#0e2310 99%);
   background:-webkit-linear-gradient(left,#162618 0%,#162618 71%,#0e2310 99%);
@@ -202,7 +160,7 @@ nav {
   width:190px;
 
   &.small {
-    width: 40px;
+    width: 2.5rem;
     & > .menu-item .sub-menu-indicator {
       opacity:0;
     }
@@ -221,9 +179,8 @@ nav {
     cursor:pointer;
     display:flex;
     font-family:'Montserrat',sans-serif;
-    font-size:15px;
     overflow:hidden;
-    padding:0 2px;
+    padding:0 .1em;
     width:190px;
 
     .menu-item-wrapper {
@@ -233,7 +190,7 @@ nav {
       width:100%;
 
       span {
-        padding:4px 8px;
+        padding:0.3em 0.7em;
         position:absolute;
 
         &:hover {
@@ -279,7 +236,7 @@ nav {
       transition:max-height .3s ease-in-out;
 
       .menu-item {
-        font-size:13px;
+        font-size:.8rem;
       }
     }
   }
@@ -296,13 +253,17 @@ nav {
 
   .section {
     clear:both;
-    padding:.3em;
-    margin:2em;
+    padding:.3rem;
+    margin:1rem;
     border-bottom:1px solid;
     border-color:rgb(100, 100, 100);
     border-color:rgba(150, 150, 150, .5);
     -webkit-background-clip: padding-box; /* for Safari */
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+
+    @media screen and (max-width: $break-large) {
+      margin:.2rem;
+    }
 
     &[data-background='star'] {
       animation:animatedBackground_bg 130s linear infinite;
@@ -327,28 +288,42 @@ nav {
 
     &.section-large {
       background-repeat:repeat;
-      min-height:400px;
+      min-height:25rem;
       margin: 0;
-      width:calc(100% - .6em);
+      padding:1.3em;
+      width:calc(100% - 2.6em);
+
+      @media screen and (max-width: $break-large) {
+        padding:1rem;
+      }
     }
 
     .section-image-wrapper {
       background-repeat:repeat;
-      min-height:400px;
+      min-height:25rem;
       width:100%;
 
       p, h1,
       .section-left-header h1,
       .section-right img {
-        margin:.6em;
-        padding:.5em .8em;
+        margin:.6rem;
+        padding:.5rem .8rem;
+
+        @media screen and (max-width: $break-medium) {
+          padding:.3rem .4rem;
+          margin:.4rem;
+        }
       }
 
       .section-lr {
-        padding: 1em;
+        padding: 1rem;
+
+        @media screen and (max-width: $break-medium) {
+          padding:.7rem;
+        }
 
         .section-left,.section-right {
-          min-width:400px;
+          min-width:25rem;
           width: 50%;
         }
 
@@ -363,8 +338,8 @@ nav {
             }
             .section-links {
               float:left;
-              font-size:24px;
-              margin-top:1em;
+              font-size:1.6rem;
+              margin-top:.8rem;
               a {
                 color:#232323;
                 margin:1em;
@@ -384,13 +359,13 @@ nav {
 }
 
 .footer {
-  padding:20px;
-  width: calc(100% - 40px);
+  padding:1.5rem;
+  width: calc(100% - 1.5rem);
   justify-content: center;
 
   p {
     color:#464646;
-    font-size:12px;
+    font-size:0.8rem;
     text-align:center;
   }
 }

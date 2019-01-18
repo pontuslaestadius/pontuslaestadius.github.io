@@ -32,7 +32,6 @@ class Settings extends Component {
           icon="adjust"
           label={{on: "Dark mode", off: "Normal mode"}}
           onClick={_ => {
-            console.log(this);
             let node = document.querySelector("body");
             node.classList[node.classList.contains("dark") ? "remove" : "add"](
               "dark"
