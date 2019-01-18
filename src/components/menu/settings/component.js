@@ -20,7 +20,7 @@ class Settings extends Component {
         <MenuItem icon="igloo" title="home" href="#root" label={icon} />
         <MenuItem
           icon="bars"
-          label="Small sidebar"
+          label={{on: "Small sidebar", off: "Large sidebar"}}
           onClick={_ => {
             let node = document.querySelector("nav");
             node.classList[node.classList.contains("small") ? "remove" : "add"](
@@ -30,7 +30,7 @@ class Settings extends Component {
         />
         <MenuItem
           icon="adjust"
-          label="Dark/Light mode"
+          label={{on: "Dark mode", off: "Normal mode"}}
           onClick={_ => {
             console.log(this);
             let node = document.querySelector("body");

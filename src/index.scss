@@ -5,6 +5,8 @@
 $gradient1: #e8e5d7;
 $gradient2: #fffced;
 
+$break-large: 1024px;
+
 body.dark {
   background: rgb(40, 40, 40);
   color: rgb(230, 230, 230);
@@ -17,6 +19,9 @@ body.dark {
 .flex {
   display:flex;
   flex-wrap:wrap;
+  @media screen and (max-width: $break-large) {
+    justify-content:center;
+  }
 }
 
 .section,
@@ -236,10 +241,16 @@ nav {
         }
       }
 
+      i[data-state='off'] > svg {
+        transform:rotate(90deg);
+      }
+
       svg {
+        transition:0.3s ease-in-out;
         overflow:hidden;
         padding:6px;
         width:20px!important;
+
       }
     }
 
@@ -285,7 +296,8 @@ nav {
 
   .section {
     clear:both;
-    padding:.7em;
+    padding:.3em;
+    margin:2em;
     border-bottom:1px solid;
     border-color:rgb(100, 100, 100);
     border-color:rgba(150, 150, 150, .5);
@@ -316,7 +328,8 @@ nav {
     &.section-large {
       background-repeat:repeat;
       min-height:400px;
-      width:calc(100% - 1.4em);
+      margin: 0;
+      width:calc(100% - .6em);
     }
 
     .section-image-wrapper {
