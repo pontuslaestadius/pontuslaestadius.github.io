@@ -198,6 +198,10 @@ nav {
     padding:0 .1em;
     width:190px;
 
+    &[data-filler='true'] {
+      height: 10px;
+    }
+
     .menu-item-wrapper {
       margin:0;
       padding:0;

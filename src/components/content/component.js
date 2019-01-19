@@ -100,10 +100,6 @@ class Content extends Component {
                 alt="A simple linked list on Nodes"
                 src="https://raw.githubusercontent.com/pontuslaestadius/pathfinder/master/examples/out/hello_world.png"
               />
-              <img
-                alt="A randomized large number of Nodes"
-                src="https://raw.githubusercontent.com/pontuslaestadius/pathfinder/master/examples/out/random.jpg"
-              />
             </React.Fragment>
           }
           links={
@@ -168,7 +164,10 @@ class Content extends Component {
           background="bionic"
           images={
             <React.Fragment>
-              <img alt="Gimpified render of the site" src="resources/site.gif" />
+              <img
+                style={{maxHeight: '360px'}}
+                alt="Gimpified render of the site"
+                src="resources/site.gif" />
             </React.Fragment>
           }
           links={

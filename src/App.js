@@ -15,7 +15,8 @@ import {
   faIgloo,
   faCodeBranch,
   faCube,
-  faAdjust
+  faAdjust,
+  faArchive
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -30,7 +31,8 @@ library.add(
   faIgloo,
   faCodeBranch,
   faCube,
-  faAdjust
+  faAdjust,
+  faArchive
 );
 
 class App extends Component {

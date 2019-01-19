@@ -38,6 +38,20 @@ class Settings extends Component {
             );
           }}
         />
+
+        <MenuItem
+          icon="archive"
+          label={{on: "Persist settings", off: "Forget settings"}}
+          onClick={event => {
+            if (event !== undefined && localStorage.getItem('persist')) {
+              localStorage.clear();
+            } else {
+              localStorage.setItem('persist', true);
+            }
+          }}
+        />
+
+        <MenuItem filler={true} label='' />
       </div>
     );
   }
