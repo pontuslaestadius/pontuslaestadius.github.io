@@ -51,6 +51,10 @@ class App extends Component {
             {
               label: "About me",
               href: "#about_me"
+            },
+            {
+              label: "Contact",
+              href: "#contact"
             }
           ]
         },
@@ -78,21 +82,6 @@ class App extends Component {
           label: "Blog",
           href: "#blog",
           subMenu: []
-        },
-        {
-          icon: "at",
-          label: "Contact",
-          href: "#contact",
-          subMenu: [
-            {
-              label: "github",
-              href: "#github"
-            },
-            {
-              label: "email",
-              href: "#email"
-            }
-          ]
         }
       ]
     };
