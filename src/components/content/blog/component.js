@@ -7,6 +7,7 @@ class Blog extends Component {
       <div className="blog">
         <Entry title="test" content={
           <React.Fragment>
+            <p>Sample content here.</p>
           </React.Fragment>
         }/>
       </div>

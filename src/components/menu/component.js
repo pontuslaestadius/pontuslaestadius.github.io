@@ -17,13 +17,11 @@ class Menu extends Component {
                 />
             )
         };
-    }
 
-    componentDidMount() {
-        if (Mobile()) {
-          document.querySelector('nav').classList.add('small');
-          document.querySelector('body').classList.add('mobile');
-        }
+      if (Mobile()) {
+        localStorage.setItem('bars', 'off');
+        document.querySelector('body').classList.add('mobile');
+      }
     }
 
     render() {

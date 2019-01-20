@@ -20,6 +20,7 @@ $color-darkgreen:#071c07;
 
 $menu-width:15rem;
 $menu-width-small:2.8rem;
+$box-shadow: 2px 2px 7px 0px rgba(133,133,133,0.25);
 
 $default-transition:.26s ease-in-out;
 
@@ -27,14 +28,21 @@ body.mobile {
   nav:not(.small) {
     width:100%;
     .menu-item {
+      width:calc(100% - 1rem);
+    }
+
+    .menu-item .sub-menu {
       width:100%;
+      margin-left:-20.6rem;
     }
   }
 
-  nav .menu-item .sub-menu {
-    width:100%;
-    margin-left:-20.6rem;
+  .nav.small {
+    .menu-item .sub-menu {
+      margin-left:-15.6rem !important;
+    }
   }
+
 }
 
 body.dark {
@@ -84,7 +92,6 @@ p,
 h1,
 h2 {
   clear:both;
-  padding:.1em .8em;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -210,9 +217,9 @@ code {
 }
 
 .box-shadow {
-  -webkit-box-shadow: 3px 3px 10px 0px rgba(133,133,133,0.3);
-  -moz-box-shadow: 3px 3px 10px 0px rgba(133,133,133,0.3);
-  box-shadow: 3px 3px 10px 0px rgba(133,133,133,0.3);
+  -webkit-box-shadow:$box-shadow;
+  -moz-box-shadow:$box-shadow;
+  box-shadow:$box-shadow;
 }
 
 nav {
@@ -235,7 +242,7 @@ nav {
 
     & ~ .content {
       padding-left:$menu-width-small;
-      width:calc(100% - 2.8rem);
+      width:calc(100% - 14.8rem);
     }
 
     & > .menu-item .sub-menu {
@@ -261,6 +268,7 @@ nav {
     margin:.3rem;
     border-radius:1rem;
     width:14rem;
+    transition:$default-transition;
 
     &[data-filler='true'] {
       opacity:0;
@@ -277,10 +285,10 @@ nav {
         padding:.3em .7em;
         position:absolute;
         transition:opacity 1s $default-transition;
+      }
 
-        &:hover {
-          text-decoration:underline;
-        }
+      &:hover > span {
+        text-decoration:underline;
       }
 
       i[data-state='off'] > svg {
@@ -312,11 +320,11 @@ nav {
     }
 
     .sub-menu {
-      margin:2.1rem 0 0 -14.7rem;
+      margin:2.1rem 0 0 -14.3rem;
       border-radius:1rem;
       max-height:0;
       overflow:hidden;
-      transition:margin $default-transition;
+      transition:margin $default-transition, max-height $default-transition;
 
       .menu-item {
         font-size:.8em;
@@ -328,7 +336,6 @@ nav {
 
 .blog {
   .entry {
-    border:1px solid;
   }
 }
 
@@ -340,24 +347,16 @@ nav {
   font-family:'Crete Round',serif;
   line-height:1.5em;
   min-height:100vh;
+  max-width:$break-large;
   overflow:hidden;
-  padding-left:$menu-width;
+  padding-left:14rem;
   transition:$default-transition;
-  width:calc(100% - 15rem);
+  width:calc(100% - 19rem);
   margin:0 auto;
-  max-width:70rem;
 
   .section {
-    clear:both;
-    padding:.3rem;
-    margin:1rem;
+    padding:2rem 0;
     border-bottom:1px solid;
-    -webkit-background-clip:padding-box; /* for Safari */
-    background-clip:padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-
-    @media screen and (max-width:$break-large) {
-      margin:.2rem;
-    }
 
     &[data-background='star'] {
       animation:animatedBackground_bg 130s linear infinite;
@@ -386,9 +385,9 @@ nav {
     &.section-large {
       background-repeat:repeat;
       min-height:25rem;
-      margin:0;
       padding:1.3em;
       width:calc(100% - 2.6em);
+      border:0;
 
       @media screen and (max-width:$break-large) {
         padding:1rem;
@@ -426,7 +425,7 @@ nav {
           }
 
           .section-left-header {
-            h1 {
+            h2 {
               float:left;
             }
             .section-links {

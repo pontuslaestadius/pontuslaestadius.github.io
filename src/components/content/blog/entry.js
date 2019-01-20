@@ -8,11 +8,7 @@ class Entry extends Component {
   }
   render() {
     return (
-      <Section {...this.state} className="entry" content={
-        <p>
-          Sample
-        </p>
-      } />
+      <Section {...this.state} className="entry" />
     );
   }
 }
