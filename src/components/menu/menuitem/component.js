@@ -25,6 +25,7 @@ class MenuItem extends Component {
 
     this.state = {
       ref: props.href || '',
+      noShadow: props.noShadow,
       filler: props.filler || false,
       icon: props.icon || "feather-alt",
       label_state: props.label.on ? icon_state : '',
@@ -64,7 +65,7 @@ class MenuItem extends Component {
 
     return (
       <React.Fragment>
-        <div className="menu-item" data-filler={this.state.filler} data-ref={this.state.ref}>
+        <div className={`menu-item ${this.state.noShadow?'':'box-shadow'}`} data-filler={this.state.filler} data-ref={this.state.ref}>
           <div className="menu-item-wrapper" onClick={event => {
             const new_state = this.switchLabel(event);
             if (localStorage.getItem('persist')) {

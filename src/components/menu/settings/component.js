@@ -17,10 +17,10 @@ class Settings extends Component {
     let icon = <Icon />;
     return (
       <div className="settings">
-        <MenuItem icon="igloo" title="home" href="#root" label={icon} />
+        <MenuItem icon="igloo" title="home" href="#root" label={icon} noShadow={true} />
         <MenuItem
           icon="bars"
-          label={{on: "Small sidebar", off: "Large sidebar"}}
+          label={{on: "Collapse", off: "Expand"}}
           onClick={_ => {
             let node = document.querySelector("nav");
             node.classList[node.classList.contains("small") ? "remove" : "add"](

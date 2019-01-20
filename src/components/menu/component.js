@@ -21,22 +21,20 @@ class Menu extends Component {
 
     componentDidMount() {
         if (Mobile()) {
-            document.querySelector('nav').classList.add('small');
+          document.querySelector('nav').classList.add('small');
+          document.querySelector('body').classList.add('mobile');
         }
     }
 
     render() {
-        return ( <
-            nav >
-            <
-            React.Fragment >
-            <
-            Settings / > {
-                this.state.menuItems
-            } <
-            /React.Fragment> < /
-            nav >
-        );
+      return (
+        <nav className="box-shadow">
+          <React.Fragment>
+            <Settings />
+            {this.state.menuItems}
+          </React.Fragment>
+        </nav>
+      );
     }
 }
 

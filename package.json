@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build && npm run build-css",
+    "predeploy": "npm run build-css && npm run build",
     "deploy": "gh-pages -d build --branch master",
     "build-css": "node-sass-chokidar src/index.scss -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/index.scss -o src/ --watch"

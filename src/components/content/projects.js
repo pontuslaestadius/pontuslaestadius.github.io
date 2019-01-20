@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from "./header.js";
 import FancySection from "./fancy/component.js";
 import Section from "./section.js";
 

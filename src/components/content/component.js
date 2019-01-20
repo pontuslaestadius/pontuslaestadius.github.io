@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./header.js";
 import Blog from "./blog/component.js";
-import FancySection from "./fancy/component.js";
 import Section from "./section.js";
 import Projects from "./projects.js";
 
@@ -66,11 +64,11 @@ class Content extends Component {
                 <b> Hi,</b> <br />
                 This github.io page groups all my projects, another reference table can be found <a href="https://github.com/pontuslaestadius/portfolio">here</a>. This page will consist of project writeups and a programming related blog. <br />
               </p>
-              <Header type="h2" title="About me" />
+              <Header type="h3" title="About me" />
               <p>
                 I am a 3rd year Software Engineering & Management Student at Gothenbourg University. I also intern part-time at Ericsson, but a lot of my sparetime revolves around learning new Programming languages, tools, algorithms and useful skills.
               </p>
-              <Header type="h2" title="Contact" />
+              <Header type="h3" title="Contact" />
               <p>
                 Follow me on
                 <a href="https://github.com/pontuslaestadius"> Github </a> and
@@ -78,9 +76,10 @@ class Content extends Component {
               </p>
               <p>
                 For anything else. <a
-                  href='\
-                        // eslint-disable-next-line \
-                        javascript:window.location.href = "mailto:" + ["pontus.laestadius", "ail.com"].join("@gm")'
+                  href='#'
+                  onClick={_ =>
+                    window.location.href=`mailto:${["pontus.laestadius", "ail.com"].join("@gm")}`
+                  }
                 >
                   Contact me by email
                 </a>
