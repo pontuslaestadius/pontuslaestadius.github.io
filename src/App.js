@@ -9,14 +9,14 @@ import {
   faCat,
   faFeatherAlt,
   faDragon,
-  faBox,
-  faBoxOpen,
   faBroom,
   faIgloo,
   faCodeBranch,
   faCube,
   faAdjust,
-  faArchive
+  faArchive,
+  faAngleDown,
+  faAngleUp
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -25,14 +25,14 @@ library.add(
   faCat,
   faFeatherAlt,
   faDragon,
-  faBox,
-  faBoxOpen,
   faBroom,
   faIgloo,
   faCodeBranch,
   faCube,
   faAdjust,
-  faArchive
+  faArchive,
+  faAngleDown,
+  faAngleUp
 );
 
 class App extends Component {

@@ -20,7 +20,7 @@ $color-darkgreen:#071c07;
 
 $menu-width:15rem;
 $menu-width-small:2.8rem;
-$box-shadow: 2px 2px 7px 0px rgba(133,133,133,0.25);
+$box-shadow: 2px 2px 5px 0px rgba(133,133,133,0.25);
 
 $default-transition:.26s ease-in-out;
 
@@ -61,7 +61,7 @@ body.dark {
   }
 
   .content .section-large[data-background='bionic'] {
-    background-color:$color-darkgreen;
+    border-color:$color-darkgreen !important;
   }
 
   .border {
@@ -114,9 +114,8 @@ a,a:visited {
 }
 
 body {
-  background:-moz-linear-gradient(left,$gradient1 0%,$gradient2 42%,$gradient2 100%);
-  background:-webkit-linear-gradient(left,$gradient1 0%,$gradient2 42%,$gradient2 100%);
-  background:linear-gradient(to right,$gradient1 0%,$gradient2 42%,$gradient2 100%);
+  background:$color-white0;
+  color:$color-black;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
   margin:0;
   padding:0;
@@ -131,15 +130,15 @@ code {
   font-family:source-code-pro,Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
-.menu-item:hover > .sub-menu-indicator svg[data-icon='box'],
-.menu-item.active > .sub-menu-indicator svg[data-icon='box'],
-.menu-item.sub-active > .sub-menu-indicator svg[data-icon='box'] {
+.menu-item:hover > .sub-menu-indicator svg[data-icon='angle-down'],
+.menu-item.active > .sub-menu-indicator svg[data-icon='angle-down'],
+.menu-item.sub-active > .sub-menu-indicator svg[data-icon='angle-down'] {
   opacity:0;
 }
 
-.menu-item:hover > .sub-menu-indicator svg[data-icon='box-open'],
-.menu-item.active > .sub-menu-indicator svg[data-icon='box-open'],
-.menu-item.sub-active > .sub-menu-indicator svg[data-icon='box-open'] {
+.menu-item:hover > .sub-menu-indicator svg[data-icon='angle-up'],
+.menu-item.active > .sub-menu-indicator svg[data-icon='angle-up'],
+.menu-item.sub-active > .sub-menu-indicator svg[data-icon='angle-up'] {
   opacity:1;
 }
 
@@ -266,7 +265,6 @@ nav {
     overflow:hidden;
     padding:0 .2em;
     margin:.3rem;
-    border-radius:1rem;
     width:14rem;
     transition:$default-transition;
 
@@ -313,7 +311,7 @@ nav {
         transition:$default-transition;
       }
 
-      svg[data-icon='box-open'] {
+      svg[data-icon='angle-up'] {
         right:-.15em;
         opacity:0;
       }
@@ -321,10 +319,9 @@ nav {
 
     .sub-menu {
       margin:2.1rem 0 0 -14.3rem;
-      border-radius:1rem;
       max-height:0;
       overflow:hidden;
-      transition:margin $default-transition, max-height $default-transition;
+      transition:margin $default-transition;
 
       .menu-item {
         font-size:.8em;
@@ -356,7 +353,7 @@ nav {
 
   .section {
     padding:2rem 0;
-    border-bottom:1px solid;
+    border-bottom:1px dashed;
 
     &[data-background='star'] {
       animation:animatedBackground_bg 130s linear infinite;
@@ -379,7 +376,7 @@ nav {
     }
 
     &[data-background='bionic'] {
-      background-color:$color-green;
+      border-left:.6rem solid $color-green !important;
     }
 
     &.section-large {
@@ -413,7 +410,7 @@ nav {
           min-width:25rem;
           width:50%;
 
-          @media screen and (max-width:$break-medium) {
+          @media screen and (max-width:$break-large) {
             min-width:0;
             width:100%;
           }

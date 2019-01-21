@@ -8,8 +8,8 @@ function SubMenu(props) {
     return (
       <React.Fragment>
         <div className="sub-menu-indicator">
-          <FontAwesomeIcon icon="box" />
-          <FontAwesomeIcon icon="box-open" />
+          <FontAwesomeIcon icon="angle-down" />
+          <FontAwesomeIcon icon="angle-up" />
         </div>
         <div className="sub-menu"> {props.items} </div>
       </React.Fragment>
