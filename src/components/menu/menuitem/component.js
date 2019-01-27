@@ -7,11 +7,10 @@ function SubMenu(props) {
   } else {
     return (
       <React.Fragment>
-        <div className="sub-menu-indicator">
+        <div className="sub-menu-indicator" >
           <FontAwesomeIcon icon="angle-down" />
-          <FontAwesomeIcon icon="angle-up" />
         </div>
-        <div className="sub-menu"> {props.items} </div>
+        <div className="sub-menu" key={props.items.reduce((a, x)=>a+x)} >{props.items}</div>
       </React.Fragment>
     );
   }
@@ -65,19 +64,18 @@ class MenuItem extends Component {
 
     return (
       <React.Fragment>
-        <div className={`menu-item ${this.state.noShadow?'':'box-shadow'}`} data-filler={this.state.filler} data-ref={this.state.ref}>
+        <div className={`flex menu-item`} data-filler={this.state.filler} data-ref={this.state.ref}>
           <div className="menu-item-wrapper" onClick={event => {
             const new_state = this.switchLabel(event);
-            if (localStorage.getItem('persist')) {
+            if (localStorage.getItem('persist'))
               localStorage.setItem(this.state.icon, new_state);
-            }
           }}>
           <i title={this.state.label_current} data-state={this.state.label_state}>
             {icon}
           </i>
-          <span> {this.state.label_current} </span>
+          <span>{this.state.label_current}</span>
           </div>
-          <SubMenu items={this.state.subMenu} key={"none"} />
+        <SubMenu items={this.state.subMenu} key={"none"} />
         </div>
       </React.Fragment>
     );

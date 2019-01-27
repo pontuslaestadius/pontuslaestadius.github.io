@@ -9,6 +9,14 @@ class Content extends Component {
     super(props);
     let self = this;
     self.state = {};
+
+    const set = (active, fn) => {
+      active.classList[fn]("active");
+      let parent = active.parentNode.parentNode.classList;
+      if (parent.contains("menu-item"))
+        parent[fn]("sub-active");
+    };
+
     const highlight = event => {
       if (!self.state.sorted_headers) {
         let headers = [];
@@ -34,14 +42,9 @@ class Content extends Component {
         if (header.top > y) continue;
         let active = self.state.active;
         if (active === header.dom) break;
-        const set = fn => {
-          active.classList[fn]("active");
-          if (active.parentNode.parentNode.classList.contains("menu-item"))
-            active.parentNode.parentNode.classList[fn]("sub-active");
-        };
-        if (active) set("remove");
+        if (active) set(active,"remove");
         active = header.dom;
-        set("add");
+        set(active,"add");
         self.setState({
           active: active,
           sorted_headers: false
@@ -61,7 +64,6 @@ class Content extends Component {
           content={
             <React.Fragment>
               <p>
-                <b> Hi,</b> <br />
                 This github.io page groups all my projects, another reference table can be found <a href="https://github.com/pontuslaestadius/portfolio">here</a>. This page will consist of project writeups and a programming related blog. <br />
               </p>
               <Header type="h3" title="About me" />

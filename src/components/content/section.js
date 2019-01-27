@@ -4,15 +4,19 @@ import Header from "./header.js";
 class Section extends Component {
   constructor(props) {
     super(props);
-    this.state = props;
+    this.state = Object.assign({}, props);
   }
 
   render() {
     return (
-      <div className={`section border ${this.state.className||''}`}>
-        <Header title={this.state.title} />
-        <div className="section-content"> {this.state.content} </div>
+      <React.Fragment>
+      <div data-background={this.state.background}>
+        <Header title={this.state.title} sub_title={this.state.sub_title} />
+        <div className={`section ${this.state.className||''}`}>
+          <div className="section-content"> {this.state.content} </div>
+        </div>
       </div>
+      </React.Fragment>
     );
   }
 }

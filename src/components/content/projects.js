@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FancySection from "./fancy/component.js";
+import FancySection from "./fancy_section.js";
 import Section from "./section.js";
 
 class Projects extends Component {
@@ -8,7 +8,8 @@ class Projects extends Component {
     return (
       <React.Fragment>
         <Section
-          title={"Projects"}
+          title="Projects"
+          sub_title="that are noteworthy"
           content={
             <p>
               Here are a list of highlighted projects I have developed. Keep in mind these are often proof of concepts when experimenting with new techonologies which I am exercising.
@@ -18,18 +19,6 @@ class Projects extends Component {
         <FancySection
           title="pathfinder"
           background="star"
-          images={
-            <React.Fragment>
-              <img
-                alt="Node plotting example"
-                src="https://raw.githubusercontent.com/pontuslaestadius/pathfinder/master/examples/out/node_plot.gif"
-              />
-              <img
-                alt="A simple linked list on Nodes"
-                src="https://raw.githubusercontent.com/pontuslaestadius/pathfinder/master/examples/out/hello_world.png"
-              />
-            </React.Fragment>
-          }
           links={
             <React.Fragment>
               <a href="https://github.com/pontuslaestadius/pathfinder">
@@ -40,8 +29,13 @@ class Projects extends Component {
               </a>
             </React.Fragment>
           }
-          description={
+          content={
             <React.Fragment>
+              <img
+                alt="Node plotting example"
+                src="https://raw.githubusercontent.com/pontuslaestadius/pathfinder/master/examples/out/node_plot.gif"
+              />
+
               <p>
                 Pathfinder is a Node based graphics library for generating images and gifs with connected nodes.
               </p>
@@ -51,16 +45,16 @@ class Projects extends Component {
               <p>
                 The images shown are example outputs from the library. And can be located along with the example code that generated them in the github repository. Click the Code-branch indicator next to the 'pathfinder' to get there.
               </p>
+
+              <img
+                alt="A simple linked list on Nodes"
+                src="https://raw.githubusercontent.com/pontuslaestadius/pathfinder/master/examples/out/hello_world.png"
+              />
             </React.Fragment>
           }
         />
         <FancySection
           title="js-irt"
-          images={
-            <React.Fragment>
-              <img alt="Test example" src="resources/jsirt.gif" />
-            </React.Fragment>
-          }
           links={
             <React.Fragment>
               <a href="https://github.com/pontuslaestadius/js-irt">
@@ -68,13 +62,16 @@ class Projects extends Component {
               </a>
             </React.Fragment>
           }
-          description={
+          content={
             <React.Fragment>
               <p>js - irt stands for Javascript inline Rust testing </p>
               <p>
                 It tests the bounderies of what can be done in your.js files
                 when tests are run from a rust module.
               </p>
+
+              <img alt="Test example" src="resources/jsirt.gif" />
+
               <p>
                 I wanted to see if it was feasible to generate javascript code from comments, there was a few issues because javascript functions can be very abstractly defined.
               </p>
@@ -90,13 +87,6 @@ class Projects extends Component {
           <FancySection
             title="this page"
             background="bionic"
-            images={
-              <React.Fragment>
-                <img
-                  alt="Gimpified render of the site"
-                  src="resources/site.gif" />
-              </React.Fragment>
-            }
             links={
               <React.Fragment>
                 <a href="https://github.com/pontuslaestadius/pontuslaestadius.github.io/tree/develop">
@@ -104,7 +94,7 @@ class Projects extends Component {
                 </a>
               </React.Fragment>
             }
-            description={
+            content={
               <React.Fragment>
                 <p>
                   This static web page is developed using <a href="https://reactjs.org/"> React</a>.
@@ -112,6 +102,9 @@ class Projects extends Component {
                 <p>
                 It was developed in a week, between week 2 and week 3 of 2019. In an attempt to get familiar with React and better show off previous projects, thus it being the focus of the page.
               </p>
+
+              <img alt="Gimpified render of the site" src="resources/site.gif" />
+
               <p>
                 The menu was tedious to develop but I am quite happy about the resulting product, it has shown issues in self selecting the menu item based on scrolling in Firefox. And it at times be improperly offset.
               </p>

@@ -1,6 +1,4 @@
-@import "https://fonts.googleapis.com/css?family=Montserrat:500";
-
-@import "https://fonts.googleapis.com/css?family=PT+Sans|Roboto+Slab";
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300|Roboto+Slab|Montserrat:500');
 
 $gradient1:#e8e5d7;
 $gradient2:#fffced;
@@ -20,9 +18,20 @@ $color-darkgreen:#071c07;
 
 $menu-width:15rem;
 $menu-width-small:2.8rem;
-$box-shadow: 2px 2px 5px 0px rgba(133,133,133,0.25);
+$box-shadow: 0 0 10px 0 rgb(200,200,200);
+$box-shadow-dark: 0 0 10px 0 black;
+
+$padding-small:.2rem;
+$padding-medium:.4rem;
+$padding-large:.8rem;
 
 $default-transition:.26s ease-in-out;
+
+img {
+  max-width:100%;
+  margin:0 auto;
+  max-height:14rem;
+}
 
 body.mobile {
   nav:not(.small) {
@@ -60,20 +69,19 @@ body.dark {
     }
   }
 
-  .content .section-large[data-background='bionic'] {
-    border-color:$color-darkgreen !important;
-  }
-
   .border {
     border-color:$color-white3;
   }
 
   nav {
-    background:-moz-linear-gradient(left,#162618 0%,#162618 71%,#0e2310 99%);
-    background:-webkit-linear-gradient(left,#162618 0%,#162618 71%,#0e2310 99%);
-    background:linear-gradient(to right,#162618 0%,#162618 71%,#0e2310 99%);
-    background:#162618;
+    background-color:$color-black;
     color:$color-white;
+  }
+
+  .box-shadow {
+    -webkit-box-shadow:$box-shadow-dark;
+    -moz-box-shadow:$box-shadow-dark;
+    box-shadow:$box-shadow-dark;
   }
 }
 
@@ -95,13 +103,15 @@ h2 {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family:'PT Sans',sans-serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  text-transform: uppercase;
+  text-align:left;
+  width:100%;
 }
 
 p {
   font-family:'Roboto Slab',serif;
-  font-size:1rem;
-  max-width:700px;
+  width:100%;
 }
 
 a,a:visited {
@@ -133,31 +143,24 @@ code {
 .menu-item:hover > .sub-menu-indicator svg[data-icon='angle-down'],
 .menu-item.active > .sub-menu-indicator svg[data-icon='angle-down'],
 .menu-item.sub-active > .sub-menu-indicator svg[data-icon='angle-down'] {
-  opacity:0;
-}
-
-.menu-item:hover > .sub-menu-indicator svg[data-icon='angle-up'],
-.menu-item.active > .sub-menu-indicator svg[data-icon='angle-up'],
-.menu-item.sub-active > .sub-menu-indicator svg[data-icon='angle-up'] {
-  opacity:1;
+  transform:rotate(180deg);
 }
 
 .menu-item:hover > .sub-menu,
 .active > .sub-menu,
 .sub-active > .sub-menu {
   max-height:20rem !important;
-  padding:.2rem .9rem;
 }
 
 .sub-active,.sub-menu {
   background:$color-white;
   color:#1e1e1e!important;
 }
-.sub-active {
+.sub-active > .menu-item-wrapper {
   background:$color-white2;
 }
 
-.active {
+.active > .menu-item-wrapper {
   background:$color-white3;
   color:#141414!important;
 }
@@ -230,7 +233,6 @@ nav {
   position:fixed;
   transition:width $default-transition;
   width:$menu-width;
-  font-size:1rem;
   background-color:$color-white0;
 
   &.small {
@@ -242,10 +244,6 @@ nav {
     & ~ .content {
       padding-left:$menu-width-small;
       width:calc(100% - 14.8rem);
-    }
-
-    & > .menu-item .sub-menu {
-      margin-left:-16rem;
     }
 
     & > .menu-item .menu-item-wrapper span,
@@ -260,12 +258,9 @@ nav {
 
   .menu-item {
     cursor:pointer;
-    display:flex;
     font-family:'Montserrat',sans-serif;
     overflow:hidden;
-    padding:0 .2em;
-    margin:.3rem;
-    width:14rem;
+    width:15rem;
     transition:$default-transition;
 
     &[data-filler='true'] {
@@ -274,15 +269,15 @@ nav {
     }
 
     .menu-item-wrapper {
+      padding:$padding-medium;
       margin:0;
-      padding:.2rem .4rem;
       position:relative;
+      max-height:2rem;
       width:100%;
 
       span {
-        padding:.3em .7em;
         position:absolute;
-        transition:opacity 1s $default-transition;
+        transition:opacity .5s $default-transition;
       }
 
       &:hover > span {
@@ -293,16 +288,16 @@ nav {
         transform:rotate(90deg);
       }
 
-      svg {
+      i {
+        padding:$padding-medium;
         overflow:hidden;
-        padding:.3rem;
       }
     }
 
     .sub-menu-indicator {
       position:absolute;
       right:1.5em;
-      padding:.5em;
+      padding:.5rem;
       transition:$default-transition;
 
       svg {
@@ -310,22 +305,17 @@ nav {
         right:0;
         transition:$default-transition;
       }
-
-      svg[data-icon='angle-up'] {
-        right:-.15em;
-        opacity:0;
-      }
     }
 
     .sub-menu {
-      margin:2.1rem 0 0 -14.3rem;
       max-height:0;
       overflow:hidden;
       transition:margin $default-transition;
 
       .menu-item {
-        font-size:.8em;
-        width:11.7rem;
+        font-size:.9em;
+        .menu-item-wrapper {
+        }
       }
     }
   }
@@ -343,109 +333,78 @@ nav {
 .content {
   font-family:'Crete Round',serif;
   line-height:1.5em;
-  min-height:100vh;
-  max-width:$break-large;
+  max-width:$break-medium;
   overflow:hidden;
   padding-left:14rem;
   transition:$default-transition;
   width:calc(100% - 19rem);
   margin:0 auto;
 
-  .section {
-    padding:2rem 0;
-    border-bottom:1px dashed;
+  @media screen and (max-width:$break-medium) {
+    width:calc(100% - 4.8rem) !important;
+  }
 
-    &[data-background='star'] {
-      animation:animatedBackground_bg 130s linear infinite;
-      background-color:$color-black;
-      background-image:url(./resources/stars_bg.gif);
-      color:$color-white !important;
-
-      .section-image-wrapper {
-        animation:animatedBackground 90s linear infinite;
-        background-image:url(./resources/stars.gif);
-      }
-
-      .section-links a {
-        color:$color-white !important;
-      }
-
-      p, h1, img {
-        color:$color-white;
-      }
-    }
-
-    &[data-background='bionic'] {
-      border-left:.6rem solid $color-green !important;
-    }
-
-    &.section-large {
-      background-repeat:repeat;
-      min-height:25rem;
-      padding:1.3em;
-      width:calc(100% - 2.6em);
-      border:0;
-
-      @media screen and (max-width:$break-large) {
-        padding:1rem;
-      }
-    }
-
-    .section-image-wrapper {
-      background-repeat:repeat;
-      min-height:25rem;
+  div {
+    .header {
       width:100%;
+      padding:.4rem;
 
-      p, h1,
-      .section-left-header h1,
-      .section-right img {
-        margin:.6rem;
-        padding:.5rem .8rem;
+      .sub_header {
+        margin:-1.4em 0 0 .7em;
+        padding:0;
+        color:rgb(75,75,75);
       }
+    }
 
-      .section-lr {
+    .section {
+      .section-content {
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
         padding:1rem;
 
-        .section-left,.section-right {
-          min-width:25rem;
-          width:50%;
-
-          @media screen and (max-width:$break-large) {
-            min-width:0;
-            width:100%;
-          }
+        .section-image-wrapper {
+          background-repeat:repeat;
+          min-height:25rem;
+          width:100%;
+          display:flex;
+          justify-content:center;
+          flex-wrap:wrap;
         }
+      }
 
-        .section-left {
-          .section-left-header {
-            width:100%;
-          }
-
-          .section-left-header {
-            h2 {
-              float:left;
-            }
-            .section-links {
-              float:left;
-              font-size:1.6rem;
-              margin-top:.8rem;
-              a {
-                color:#232323;
-                margin:1em;
-              }
-            }
-          }
-        }
-
-        .section-right {
-          img {
-            max-width:calc(100% - 1.2em);
-            max-height:13rem !important;
-          }
-        }
+      &.section-large {
+        background-repeat:repeat;
+        min-height:25rem;
+        width:calc(100% - 2.6em);
+        border:0;
       }
     }
   }
+}
+
+div[data-background='star'] {
+  animation:animatedBackground_bg 130s linear infinite;
+  background-color:$color-black;
+  background-image:url(./resources/stars_bg.gif);
+  color:$color-white !important;
+
+  .section-image-wrapper {
+    animation:animatedBackground 90s linear infinite;
+    background-image:url(./resources/stars.gif);
+  }
+
+  .section-links a {
+    color:$color-white !important;
+  }
+
+  p, h1, img {
+    color:$color-white;
+  }
+}
+
+div[data-background='bionic'] .header {
+  background-color:rgba(100,255,100,.3);
 }
 
 .footer {
@@ -463,7 +422,6 @@ nav {
   from {
     background-position:0 0;
   }
-
   to {
     background-position:640px 400px;
   }
@@ -473,7 +431,6 @@ nav {
   from {
     background-position:0 0;
   }
-
   to {
     background-position:640px 400px;
   }
@@ -483,7 +440,6 @@ nav {
   from {
     background-position:0 0;
   }
-
   to {
     background-position:-640px -800px;
   }
@@ -493,7 +449,6 @@ nav {
   from {
     background-position:0 0;
   }
-
   to {
     background-position:-640px 400px;
   }

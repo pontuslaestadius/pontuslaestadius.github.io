@@ -10,11 +10,7 @@ class Menu extends Component {
         super(props);
         this.state = {
             menuItems: (props.menuItems || []).map(x =>
-                <
-                MenuItem {
-                    ...x
-                }
-                />
+                <MenuItem {...x} />
             )
         };
 
