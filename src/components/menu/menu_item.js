@@ -64,7 +64,7 @@ class MenuItem extends Component {
 
     return (
       <React.Fragment>
-        <div className={`flex menu-item`} data-filler={this.state.filler} data-ref={this.state.ref}>
+        <div className={`tr flex menu-item`} data-filler={this.state.filler} data-ref={this.state.ref}>
           <div className="menu-item-wrapper" onClick={event => {
             const new_state = this.switchLabel(event);
             if (localStorage.getItem('persist'))
@@ -73,7 +73,7 @@ class MenuItem extends Component {
           <i title={this.state.label_current} data-state={this.state.label_state}>
             {icon}
           </i>
-          <span>{this.state.label_current}</span>
+          <span className="tr">{this.state.label_current}</span>
           </div>
         <SubMenu items={this.state.subMenu} key={"none"} />
         </div>

@@ -224,6 +224,10 @@ code {
   box-shadow:$box-shadow;
 }
 
+.tr {
+  transition:$default-transition;
+}
+
 nav {
   font-family:'Montserrat',sans-serif;
   height:100vh;
@@ -261,7 +265,6 @@ nav {
     font-family:'Montserrat',sans-serif;
     overflow:hidden;
     width:15rem;
-    transition:$default-transition;
 
     &[data-filler='true'] {
       opacity:0;
@@ -277,7 +280,6 @@ nav {
 
       span {
         position:absolute;
-        transition:opacity .5s $default-transition;
       }
 
       &:hover > span {
@@ -314,8 +316,6 @@ nav {
 
       .menu-item {
         font-size:.9em;
-        .menu-item-wrapper {
-        }
       }
     }
   }
@@ -336,7 +336,6 @@ nav {
   max-width:$break-medium;
   overflow:hidden;
   padding-left:14rem;
-  transition:$default-transition;
   width:calc(100% - 19rem);
   margin:0 auto;
 
@@ -358,18 +357,14 @@ nav {
 
     .section {
       .section-content {
-        display:flex;
         justify-content:center;
-        flex-wrap:wrap;
         padding:1rem;
 
         .section-image-wrapper {
           background-repeat:repeat;
           min-height:25rem;
           width:100%;
-          display:flex;
           justify-content:center;
-          flex-wrap:wrap;
         }
       }
 

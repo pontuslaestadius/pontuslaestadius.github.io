@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MenuItem from "./../menuitem/component.js";
+import MenuItem from "./../menu_item.js";
 
 function Icon() {
   return (

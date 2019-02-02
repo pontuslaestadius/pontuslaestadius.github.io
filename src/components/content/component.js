@@ -58,7 +58,7 @@ class Content extends Component {
 
   render() {
     return (
-      <div className="content" onScroll={this.listenScrollEvent}>
+      <div className="tr content" onScroll={this.listenScrollEvent}>
         <Section
           title="Introduction"
           content={

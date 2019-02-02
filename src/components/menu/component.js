@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react';
 import Settings from './settings/component.js';
-import MenuItem from './menuitem/component.js';
+import MenuItem from './menu_item.js';
 import Mobile from 'is-mobile';
 
 class Menu extends Component {

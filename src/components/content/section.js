@@ -13,7 +13,7 @@ class Section extends Component {
       <div data-background={this.state.background}>
         <Header title={this.state.title} sub_title={this.state.sub_title} />
         <div className={`section ${this.state.className||''}`}>
-          <div className="section-content"> {this.state.content} </div>
+          <div className="section-content flex"> {this.state.content} </div>
         </div>
       </div>
       </React.Fragment>

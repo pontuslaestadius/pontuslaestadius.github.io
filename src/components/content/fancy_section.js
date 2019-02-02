@@ -9,7 +9,7 @@ class FancySection extends Component {
   render() {
     return (
       <Section {...this.state} className="section-large" content={
-        <div className="section-image-wrapper">
+        <div className="section-image-wrapper flex">
             {this.state.content}
           </div>
       } />
