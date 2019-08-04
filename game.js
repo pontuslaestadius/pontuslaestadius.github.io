@@ -27,9 +27,8 @@ var weather = [];
 const config = {
     "bg_accuracy": 10,
     "fps": 24,
-    "lang": "language.SV_SE",
     "weather": {
-        "max_items": 50
+        "max_items": 200
     },
 };
 function drawI(img, x, y, w, h) {
@@ -44,7 +43,7 @@ function drawI(img, x, y, w, h) {
     }
 }
 function initalize() {
-        c = document.getElementById("myCanvas");
+    c = document.getElementById("myCanvas");
     ctx = c.getContext("2d");
 
     c2 = document.getElementById("layer2");
@@ -248,49 +247,49 @@ class Weather {
         this.dx = -(10 + Helper.roll(5));
         this.h = 1 + Helper.roll(2);
         this.w = this.h -1;
-        this.x = Helper.roll(c.width);
+        this.x = Helper.roll(c.width * 1.2);
         this.y = Helper.roll(c.height/2);
         this.id = Helper.roll(9999);
         this.lifetime = 0;
-        this.speed = (1000/config.fps)/2;
+        this.speed = (1000/config.fps)/4;
         this.totalLifeTime = (1000/config.fps)/1;
         weather.push(this);
     }
-}
-Weather.prototype.updatePosition = function () {
-    if (this.lifetime > this.totalLifeTime ||
-        Math.floor(this.h) === 0 ||
-        Math.floor(this.h) === 0){
-        weather.splice(weather.findIndex(x => x.id === this.id), 1);
-        delete this;
-        return;
+    paint() {
+        ctx.fillStyle=`rgb(${50 - this.lifetime / 2}, ${this.lifetime}, ${255 - this.lifetime * 2})`;
+        ctx.fillRect(this.x - this.w/2, this.y, this.w, this.h);
     }
-    if (this.y > c.height - 10) {
-        this.collision = true;
-    }
-    if (!this.collision) {
-        this.y += this.speed;
-        this.x += this.dx;
-        let {x, y, w, h} = player[0];
-        w -= 40;
-        x += 30;
-        h += 25;
-        y += 5;
-
-        if (this.y > y && this.y < y+h && this.x > x && this.x  < x + w) {
-            this.collision = 'player';
+    updatePosition() {
+        if (this.lifetime > this.totalLifeTime ||
+            Math.floor(this.h) === 0 ||
+            Math.floor(this.h) === 0){
+            weather.splice(weather.findIndex(x => x.id === this.id), 1);
+            delete this;
+            return;
         }
-    } else if (this.collision == 'player') {
-        this.y -= this.speed / 10;
-        this.x -= this.dx / 2;
-        this.lifetime += this.speed;
-    } else {
-        this.w *= 1.2;
-        this.h -= 0.3;
-        this.lifetime += this.speed;
+        if (this.y > c.height - 10) {
+            this.collision = true;
+        }
+        if (!this.collision) {
+            this.y += this.speed;
+            this.x += this.dx;
+            let {x, y, w, h} = player[0];
+            w -= 40;
+            x += 30;
+            h += 25;
+            y += 5;
+
+            if (this.y > y && this.y < y+h && this.x > x && this.x  < x + w) {
+                this.collision = 'player';
+            }
+        } else if (this.collision == 'player') {
+            this.y -= this.speed / 10;
+            this.x -= this.dx / 2;
+            this.lifetime += this.speed;
+        } else {
+            this.w++;
+            this.h -= 0.2;
+            this.lifetime += this.speed;
+        }
     }
-};
-Weather.prototype.paint = function (ctx) {
-    ctx.fillStyle=`rgb(0, 0, ${200 - this.lifetime * 2})`;
-    ctx.fillRect(this.x - this.w/2, this.y, this.w, this.h);
 };

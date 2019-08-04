@@ -1,12 +1,10 @@
-class Player {
+class Player extends Entity {
     constructor() {
+        super((c.width - 50) / 2, c.height - 45, 50, 37);
+
+        this.mheight = this.y;
         this.d = 0;
         this.flipH = 1;
-        this.w = 50;
-        this.h = 37;
-        this.x = (c.width - this.w) /2;
-        this.mheight = c.height - this.h - 8;
-        this.y = this.mheight;
         this.ani = 0;
         this.xRight = 0;
         this.xLeft = 0;
@@ -37,13 +35,17 @@ class Player {
         };
         this.set_sprite('idle1');
     }
+
+    render() {
+        this.x = Math.min(Math.max(0, this.x), c.width - this.w);
+    }
 }
 Player.prototype.framer = function (
     fx = 0,
     fy = 0,
     len = 0,
     play_once = false,
-    speed = 0.5,
+    speed = 0.25,
 ) {
     const {w,h} = this;
     let frames = [];
@@ -57,7 +59,7 @@ Player.prototype.framer = function (
             fy++;
         }
     }
-    return {frames, play_once, speed};
+    return {frames, play_once, speed: play_once ? speed * 2 : speed};
 };
 Player.prototype.set_sprite = function (str) {
     if (this.current_sprite === this.spriter[str]) {
@@ -97,6 +99,9 @@ Player.prototype.keyDown = function ({keyCode}) {
             return;
         }
         this.attack = true;
+        let attack_width = this.w/2;
+        let center = this.x + (this.w - attack_width) / 2;
+        new Attack(center + (attack_width) * this.flipH, this.y, attack_width, this.h);
         this.d /= 10;
         if (this.dy !== 0) {
             this.attack_sprite = `attack5`;
@@ -128,7 +133,7 @@ Player.prototype.keyDown = function ({keyCode}) {
         break;
     case 16: // [[shift]]
         if (Math.abs(this.d) > Math.abs(1.5)) {
-            this.d *= 3;
+            this.d *= 2;
             this.slide = true;
         }
         break;
@@ -146,14 +151,9 @@ Player.prototype.paint = function (ctx) {
     ctx.drawImage(player_sprite, sx, sy, swidth, sheight, x * flipH, y, w, h);
     ctx.restore();
 
-    if (this.attack) {
-        ctx.fillStyle="#FF0000";
-        let attack_width = this.w/2;
-        let center = this.x + (this.w - attack_width) / 2;
-        ctx.fillRect(center + (attack_width) * flipH, this.y, attack_width, this.h);
-    }
 };
 Player.prototype.updatePosition = function () {
+    this.render();
     if (this.y > this.mheight && this.dy > -10) {
         this.dy = 0;
         this.y = this.mheight;
@@ -198,6 +198,9 @@ Player.prototype.updatePosition = function () {
         this.x += (this.xLeft + this.xRight + this.d) * 3;
     }
     this.d -= this.slide ? this.d/5 : this.d/10;
+    if (Math.abs(this.d) > 5) {
+        this.d = 5  * (this.d/Math.abs(this.d));
+    }
     this.collision = this.y >= this.mheight && this.dy > -5;
     if (this.collision && this.attack_sprite === 'attack5') {
         this.attack = false;
