@@ -1,5 +1,6 @@
 let renderObjects = [];
 let calcObjects = [];
+let collisionObjects = [];
 
 class Entity {
     constructor(x, y, w, h) {
@@ -7,6 +8,7 @@ class Entity {
         this.id = Helper.roll(1000000);
         renderObjects.push(this);
         calcObjects.push(this);
+        collisionObjects.push(this);
     }
     calc() {}
     render(ctx) {}
@@ -16,6 +18,7 @@ class Entity {
         let spl = (obj) => obj.splice(obj.findIndex(x => x.id === this.id), 1);
         spl(renderObjects);
         spl(calcObjects);
+        spl(collisionObjects);
         delete this;
     }
 }

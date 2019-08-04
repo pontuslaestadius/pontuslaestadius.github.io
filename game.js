@@ -67,20 +67,17 @@ function updateLayers(dx = 0) {
         return;
     }
     pv = dx;
-    let offset = -150;
-    let h = 500;
     let w = 600;
     let drawer = (img, ratio = 1, dy = 0) => {
-        for (var i = -w*2; i < c.width * 2; i += w) {
-            ctx2.drawImage(img, i + (dx * ratio) % w, offset + dy, w +2, h);
+        for (var i = -w; i < c.width + w*2; i += w) {
+            ctx2.drawImage(img, i + (dx * ratio) % w, dy - 150, w +2, 500);
         }
     }
-
     drawer(layer_92, 0.03);
     drawer(layer_83, 0.05);
-    drawer(middle_layer, 0.08);
     drawer(top_layer, 0.05);
     drawer(layer_7L, 0.10);
+    drawer(middle_layer, 0.08);
     drawer(bottom_layer, 0.2);
     drawer(layer_09, 0.1, 30);
 }
@@ -96,11 +93,31 @@ function timeFn(fn, onWarn = () => {}) {
 }
 function gameloop() {
     ctx.clearRect(0, 0, c.width, c.height);
-    while (Helper.roll(100) < 50) {
+    while (Helper.roll(100) > 20) {
         new Weather();
     }
     calcObjects.forEach(x => x.calc());
     renderObjects.forEach(x => x.render(ctx));
+    const len = collisionObjects.length;
+    for (let i = 0; i < len; i++) {
+        const o1 = collisionObjects[i];
+        for (let j = i; j < len; j++) {
+            if (i === j) {
+                continue;
+            }
+            const o2 = collisionObjects[j];
+            const name1 = o1.constructor.name;
+            const name2 = o2.constructor.name;
+            if (
+                name2 !== name1 &&
+                    o2.x + o2.w > o1.x && o1.x + o1.w >= o2.x &&
+                    o2.y + o2.h > o1.y && o1.y + o1.h >= o2.y
+            ) {
+                o2.onCollide(o1);
+                o1.onCollide(o2);
+            }
+        }
+    }
 }
 function keyDown(e){
     if (!player) {

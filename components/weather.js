@@ -15,6 +15,9 @@ class Weather extends Entity {
         ctx.fillStyle=`rgb(0, ${this.lifetime}, ${255 - this.lifetime * 2})`;
         ctx.fillRect(this.x - this.w/2, this.y, this.w, this.h);
     }
+    onCollide(other) {
+        this.collision = other.constructor.name;
+    }
     calc() {
         if (!player ||
             this.lifetime > this.totalLifeTime ||
@@ -36,11 +39,7 @@ class Weather extends Entity {
             x += 30;
             h += 25;
             y += 5;
-
-            if (this.y > y && this.y < y+h && this.x > x && this.x  < x + w) {
-                this.collision = 'player';
-            }
-        } else if (this.collision == 'player') {
+        } else if (this.collision == 'Player') {
             this.y -= this.speed / 10;
             this.x -= this.dx / 2;
             this.lifetime += this.speed;

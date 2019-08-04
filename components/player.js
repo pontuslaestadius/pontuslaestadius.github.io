@@ -36,6 +36,18 @@ class Player extends Entity {
         this.set_sprite('idle1');
     }
 
+    set_sprite(str) {
+        if (this.current_sprite === this.spriter[str]) {
+            return;
+        }
+        this.ani = 0;
+        if (!this.spriter[str]) {
+            console.warn(`Not a registered sprite: ${str}`);
+            return;
+        }
+        this.current_sprite = this.spriter[str];
+    };
+
     render(ctx) {
         if (!ctx) {
             return;
@@ -136,17 +148,6 @@ Player.prototype.framer = function (
         }
     }
     return {frames, play_once, speed: play_once ? speed * 2 : speed};
-};
-Player.prototype.set_sprite = function (str) {
-    if (this.current_sprite === this.spriter[str]) {
-        return;
-    }
-    this.ani = 0;
-    if (!this.spriter[str]) {
-        console.warn(`Not a registered sprite: ${str}`);
-        return;
-    }
-    this.current_sprite = this.spriter[str];
 };
 Player.prototype.keyUp = function ({keyCode}) {
     switch (keyCode) {
