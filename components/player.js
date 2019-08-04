@@ -36,8 +36,84 @@ class Player extends Entity {
         this.set_sprite('idle1');
     }
 
-    render() {
-        this.x = Math.min(Math.max(0, this.x), c.width - this.w);
+    render(ctx) {
+        if (!ctx) {
+            return;
+        }
+        const f = Math.floor(this.ani);
+        const {sx, sy} = this.current_sprite.frames[f];
+        const {flipH, x, y, w, h, swidth, sheight} = this;
+        ctx.save();
+        if (flipH === -1) {
+            ctx.scale(flipH, 1);
+            ctx.translate(flipH * w, 1);
+        }
+        ctx.drawImage(player_sprite, sx, sy, swidth, sheight, x * flipH, y, w, h);
+        ctx.restore();
+    }
+
+    calc() {
+        if (this.y > this.mheight && this.dy > -10) {
+            this.dy = 0;
+            this.y = this.mheight;
+        }
+        if (this.dy < 0) {
+            this.set_sprite('jump');
+        } else if (this.dy > 0) {
+            if (this.attack) {
+                this.set_sprite(this.attack_sprite);
+            } else {
+                this.set_sprite('fall');
+            }
+        } else if (this.attack) {
+            this.set_sprite(this.attack_sprite);
+        } else if (this.duck) {
+            this.set_sprite('duck');
+        } else if (this.slide) {
+            this.set_sprite('slide');
+        } else if (this.xRight + this.xLeft !== 0) {
+            this.set_sprite('run');
+        } else {
+            this.set_sprite(this.idle_sprite);
+        }
+        const {speed, play_once, frames} = this.current_sprite;
+        this.ani = this.ani >= frames.length - speed ? 0 : this.ani + speed;
+
+        if (play_once && this.ani === 0) {
+            play_once();
+        }
+        if (this.dy === 0) {
+            if (this.xLeft) {
+                this.d -= 0.3;
+            }
+            if (this.xRight) {
+                this.d += 0.3;
+            }
+        } else {
+        }
+        if (this.duck) {
+            this.x += this.d;
+        } else {
+            this.x += (this.xLeft + this.xRight + this.d) * 3;
+        }
+        this.d -= this.slide ? this.d/5 : this.d/10;
+        if (Math.abs(this.d) > 5) {
+            this.d = 5  * (this.d/Math.abs(this.d));
+        }
+        this.collision = this.y >= this.mheight && this.dy > -5;
+        if (this.collision && this.attack_sprite === 'attack5') {
+            this.attack = false;
+            this.set_sprite('idle2');
+        }
+        if (!this.collision) {
+            this.y += this.dy;
+            this.dy += 0.5 + Math.abs(this.dy) / 20;
+        } else {
+            this.collision = false;
+            this.dy = 0;
+        }
+        let tx = this.x;
+        timeFn(updateLayers.bind(null, tx), () => config.bg_accuracy += 2);
     }
 }
 Player.prototype.framer = function (
@@ -138,81 +214,4 @@ Player.prototype.keyDown = function ({keyCode}) {
         }
         break;
     }
-};
-Player.prototype.paint = function (ctx) {
-    const f = Math.floor(this.ani);
-    const {sx, sy} = this.current_sprite.frames[f];
-    const {flipH, x, y, w, h, swidth, sheight} = this;
-    ctx.save();
-    if (flipH === -1) {
-        ctx.scale(flipH, 1);
-        ctx.translate(flipH * w, 1);
-    }
-    ctx.drawImage(player_sprite, sx, sy, swidth, sheight, x * flipH, y, w, h);
-    ctx.restore();
-
-};
-Player.prototype.updatePosition = function () {
-    this.render();
-    if (this.y > this.mheight && this.dy > -10) {
-        this.dy = 0;
-        this.y = this.mheight;
-    }
-    if (this.dy < 0) {
-        this.set_sprite('jump');
-    } else if (this.dy > 0) {
-        if (this.attack) {
-            this.set_sprite(this.attack_sprite);
-        } else {
-            this.set_sprite('fall');
-        }
-    } else if (this.attack) {
-        this.set_sprite(this.attack_sprite);
-    } else if (this.duck) {
-        this.set_sprite('duck');
-    } else if (this.slide) {
-        this.set_sprite('slide');
-    } else if (this.xRight + this.xLeft !== 0) {
-        this.set_sprite('run');
-    } else {
-        this.set_sprite(this.idle_sprite);
-    }
-    const {speed, play_once, frames} = this.current_sprite;
-    this.ani = this.ani >= frames.length - speed ? 0 : this.ani + speed;
-
-    if (play_once && this.ani === 0) {
-        play_once();
-    }
-    if (this.dy === 0) {
-        if (this.xLeft) {
-            this.d -= 0.3;
-        }
-        if (this.xRight) {
-            this.d += 0.3;
-        }
-    } else {
-    }
-    if (this.duck) {
-        this.x += this.d;
-    } else {
-        this.x += (this.xLeft + this.xRight + this.d) * 3;
-    }
-    this.d -= this.slide ? this.d/5 : this.d/10;
-    if (Math.abs(this.d) > 5) {
-        this.d = 5  * (this.d/Math.abs(this.d));
-    }
-    this.collision = this.y >= this.mheight && this.dy > -5;
-    if (this.collision && this.attack_sprite === 'attack5') {
-        this.attack = false;
-        this.set_sprite('idle2');
-    }
-    if (!this.collision) {
-        this.y += this.dy;
-        this.dy += 0.5 + Math.abs(this.dy) / 20;
-    } else {
-        this.collision = false;
-        this.dy = 0;
-    }
-    let tx = this.x;
-    timeFn(updateLayers.bind(null, tx), () => config.bg_accuracy++);
 };
