@@ -3,32 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>2DG</title>
-    <script src="components/entity.js"></script>
-    <script src="game.js"></script>
-    <script src="components/weather.js"></script>
-    <script src="components/helper.js"></script>
-    <script src="components/player.js"></script>
-    <script src="components/projectile.js"></script>
-    <script src="components/attack.js"></script>
-    <style>
-      img {display: none}
-      * { margin:0; padding:0; } /* to remove the top and left whitespace */
-      html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
-      canvas { display:block; position: absolute; } /* To remove the scrollbars */
-      body {background-color: rgb(17, 12, 35)};
-    </style>
   </head>
-  <body onkeydown="keyDown(event)" onkeyup="keyUp(event)" onload="initalize()">
-    <img src="resources/adventurer-v1.5-Sheet.png" id="player_sprite"/>
-    <img src="resources/background/Layer_0002_7.png" id="top_layer"/>
-    <img src="resources/background/Layer_0005_5.png" id="middle_layer"/>
-    <img src="resources/background/Layer_0001_8.png" id="bottom_layer"/>
-    <img src="resources/background/Layer_0008_3.png" id="layer_83"/>
-    <img src="resources/background/Layer_0007_Lights.png" id="layer_7L"/>
-    <img src="resources/background/Layer_0000_9.png" id="layer_09"/>
-    <img src="resources/background/Layer_0009_2.png" id="layer_92"/>
-    <canvas id="layer2" ></canvas>
-    <canvas id="myCanvas" style="margin-top: 142px;"></canvas>
-
+  <body>
+    <div>
+      <img src="./resources/background/09.png" id="L09">
+      <img src="./resources/background/11.png" id="L11">
+      <img src="./resources/background/18.png" id="L18">
+      <img src="./resources/background/27.png" id="L27">
+      <img src="./resources/background/36.png" id="L36">
+      <img src="./resources/background/4L.png" id="L4L">
+      <img src="./resources/background/55.png" id="L55">
+      <img src="./resources/background/64.png" id="L64">
+      <img src="./resources/background/7L.png" id="L7L">
+      <img src="./resources/background/83.png" id="L83">
+      <img src="./resources/background/92.png" id="L92">
+      <img src="./resources/adventurer.png" id="player_sprite">
+    </div>
+    <canvas id="layer2"></canvas>
+    <canvas id="myCanvas" style="margin-top: 102px;" height="250"></canvas>
+    <script src="./bootstrap.js"></script>
   </body>
 </html>
