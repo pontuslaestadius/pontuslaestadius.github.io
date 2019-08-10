@@ -1,0 +1,10 @@
+{
+    "fps": 30,
+    "weather": {
+        "max_items": 0
+    },
+    "particles": {
+        "max_items": 200
+    },
+    "debug": false
+}
