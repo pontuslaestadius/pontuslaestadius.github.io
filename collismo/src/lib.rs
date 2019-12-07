@@ -11,9 +11,10 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm_bindgen]
 extern {
     fn alert(s: &str);
+    fn callMyFunction(s: &str);
 }
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Hello, {{project-name}}!");
+    callMyFunction("Hello, {{project-name}}!");
 }

@@ -6,13 +6,13 @@ import Helper from './helper'
 
 export default class Player extends Entity {
     constructor() {
-        super(100, 100, 50, 37, -1);
+        super(100, 100, 25, 25, -1)
 
         this.flipH = 1;
         this.ani = 0;
         this.keyDownList = new Array(250);
-        this.swidth = this.w;
-        this.sheight = this.h;
+        this.swidth = 50;
+        this.sheight = 37;
         this.idle_sprite = 'idle1';
         this.speed = Helper.delta(10);
         this.v.y = 1;
@@ -61,25 +61,15 @@ export default class Player extends Entity {
             ctx.scale(flipH, 1);
             ctx.translate(flipH * w, 1);
         }
-        ctx.drawImage(player_sprite, sx, sy, swidth, sheight, Math.floor(x * flipH), Math.floor(y), w, h);
+        ctx.drawImage(player_sprite, sx, sy, swidth, sheight, Math.floor(x * flipH) - 10, Math.floor(y) - 7, swidth, sheight);
         ctx.restore();
-    }
 
-    onCollide(other) {
-        if (other.constructor.name === "RigidObject") {
-            let c1 = this.centerPoint();
-            let c2 = other.centerPoint();
-
-            if (other.y < this.yh()) {
-                this.v.y = Math.floor((this.yh() - other.y) / 10);
-                this.v.x /= 2;
-            }
-            this.attack = false;
-        }
+        // Debug:
+        // ctx.fillText(this.v.y, x, y +12);
+        // ctx.fillText(this.v.x, x, y +24);
     }
 
     calc() {
-        console.log(this.collisions);
         if (this.y > c.height) {
             this.y = 100;
             this.v.y = 1;
@@ -114,7 +104,6 @@ export default class Player extends Entity {
             }
         }
         this.v.x -= ((this.keyDownList[39] ? -1 : 0) + (this.keyDownList[37] ? 1 : 0)) * this.speed * 2;
-        this.v.x -= this.slide ? this.v.x/5 : this.v.x/10;
         if (Math.abs(this.v.x) > 5) {
             this.v.x = 5  * (this.v.x/Math.abs(this.v.x));
         }
@@ -133,11 +122,11 @@ export default class Player extends Entity {
         play_once = false,
         speed = this.speed,
     ) {
-        const {w,h} = this;
+        const {swidth, sheight} = this;
         let frames = [];
         let clen = 0;
         while (clen !== len) {
-            frames.push({sx: w*fx, sy: h*fy});
+            frames.push({sx: swidth * fx, sy: sheight * fy});
             fx++;
             clen++;
             if (fx > 6) {
@@ -155,10 +144,12 @@ export default class Player extends Entity {
             this.slide = false;
             break;
         case 39: // ->
+            this.v.x = 0;
             break;
         case 40: // [[down arrow]]
             break;
         case 37: // <-
+            this.v.x = 0;
             break;
         }
     }
@@ -184,9 +175,11 @@ export default class Player extends Entity {
             break;
         case 39: // ->
             this.flipH = 1;
+            this.v.x = 0;
             break;
         case 37: // <-
             this.flipH = -1;
+            this.v.x = 0;
             break;
         case 40: // [[down arrow]]
             this.v.x = 0;

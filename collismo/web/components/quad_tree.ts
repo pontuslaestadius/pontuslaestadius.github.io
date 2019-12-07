@@ -18,12 +18,12 @@ export default class QuadTree extends Boundry {
         h: number,
         capacity: number,
     ) {
-        super(x, y, w, h);
-        this.capacity = capacity;
+        super(x, y, w, h)
+        this.capacity = capacity
     }
 
     insert(point: Boundry) {
-        if (!this.contains(point)) {
+        if (!this.intersects(point)) {
             return false
         } else if (this.points.length < this.capacity) {
             this.points.push(point)
@@ -41,64 +41,79 @@ export default class QuadTree extends Boundry {
     }
 
     subdivide() {
-        const {x, y, w, h, capacity} = this;
-        this.quadTrees = this.quadTrees.concat([
-            new QuadTree(x,     y,     w/2, h/2, capacity),
-            new QuadTree(x+w/2, y,     w/2, h/2, capacity),
-            new QuadTree(x,     y+h/2, w/2, h/2, capacity),
-            new QuadTree(x+w/2, y+h/2, w/2, h/2, capacity)
-        ]);
+        const {x, y, w, h, capacity} = this
+        const tw = w/h
+        const iw = w/tw
+
+        if (tw === 1) {
+            this.quadTrees = [
+                new QuadTree(x,     y,     w/2, h/2, capacity),
+                new QuadTree(x+w/2, y,     w/2, h/2, capacity),
+                new QuadTree(x,     y+h/2, w/2, h/2, capacity),
+                new QuadTree(x+w/2, y+h/2, w/2, h/2, capacity)
+            ]
+        } else {
+            for (var i = 0; i < tw; i++) {
+                this.quadTrees.push(new QuadTree(x + i*iw, y, iw, h, capacity))
+            }
+        }
     }
 
-    render(ctx: CanvasRenderingContext2D) {
+    render(qt_ctx: CanvasRenderingContext2D) {
         if (!this.points.length) {
-            return;
+            return
         }
-        const {x, y, w, h} = this;
-        ctx.fillRect(x, y, 1, h);
-        ctx.fillRect(x, y, w, 1);
-        ctx.fillRect(x+w-1, y, 1, h);
-        ctx.fillRect(x, y+h-1, w, 1);
+        const {x, y, w, h} = this
+        qt_ctx.fillRect(x, y, 1, h)
+        qt_ctx.fillRect(x, y, w, 1)
+        qt_ctx.fillRect(x+w-1, y, 1, h)
+        qt_ctx.fillRect(x, y+h-1, w, 1)
         this.quadTrees.forEach((qt: QuadTree) => {
-            qt.render(ctx)
+            qt.render(qt_ctx)
         })
     }
 
-    debugRender(ctx: CanvasRenderingContext2D) {}
+    debugRender(qt_ctx: CanvasRenderingContext2D) {}
 
     query(range: Boundry): Boundry[] {
         if (!this.intersects(range)) {
-            return [];
+            return []
         }
 
         let found: Boundry[] = this.points.filter((point: Boundry) => {
-            return range.contains(point);
-        });
+            return range.intersects(point)
+        })
 
         for (var i = 0; i < this.quadTrees.length; i++) {
-            let sub_query = this.quadTrees[i].query(range);
+            let sub_query = this.quadTrees[i].query(range)
             if (sub_query.length) {
-                found.concat(sub_query);
-                // break; // Uncomment this if objects do not cross several subdivides.
+                found.concat(sub_query)
+                // Uncomment this if objects do not cross several subdivides.
+                // break
             }
         }
 
         if (found.length) {
             const {x, y, w, h} = this
             // @ts-ignore
-            ctx.fillStyle=`rgb(255,255,255)`
+            qt_ctx.globalAlpha = 0.3
             // @ts-ignore
-            ctx.fillRect(x,y,w,1)
+            qt_ctx.fillStyle=`rgb(255,255,255)`
             // @ts-ignore
-            ctx.fillRect(x,y,1,h)
+            qt_ctx.fillText(`${this.points.length}/${this.capacity}`, x+w/2 - 4, y+h/2 + 6)
             // @ts-ignore
-            ctx.fillRect(x,y+h,w,1)
+            qt_ctx.fillRect(x,y,w,1)
             // @ts-ignore
-            ctx.fillRect(x+w,y,1,h)
+            qt_ctx.fillRect(x,y,1,h)
+            // @ts-ignore
+            qt_ctx.fillRect(x,y+h-1,w,1)
+            // @ts-ignore
+            qt_ctx.fillRect(x+w-1,y,1,h)
+            // @ts-ignore
+            qt_ctx.globalAlpha = 1.0
         }
 
-
-        return found;
+        return found
     }
 
 }

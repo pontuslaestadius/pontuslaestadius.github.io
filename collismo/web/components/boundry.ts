@@ -32,12 +32,26 @@ export default class Boundry {
                 y + h <= this.y + this.h)
     }
 
+    intersectsY(other: Boundry) {
+        let {y,h} = other
+        let t = this
+        return !(y   > t.y+t.h ||
+                 y+h < t.y-t.h)
+    }
+
+    intersectsX(other: Boundry) {
+        let {x,w} = other
+        let t = this
+        return !(x-w > t.x+t.w ||
+                 x+w < t.x-t.w)
+    }
+
     intersects(other: Boundry) {
         let {x,y,w,h} = other
-        let t = this;
+        let t = this
         return !(x-w > t.x+t.w ||
                  x+w < t.x-t.w ||
-                 y-h > t.y+t.h ||
+                 y   > t.y+t.h ||
                  y+h < t.y-t.h)
     }
 }

@@ -9,10 +9,16 @@ export default class Particle extends Entity {
     alpha: number
     maxed: boolean
 
-    constructor() {
+    constructor(
+        x: number = 0,
+        y: number = 0,
+        w: number = 2,
+        h: number = 2,
+        duration: number = -1,
+    ) {
         // @ts-ignore
-        super(0, 0, 2, 2, -1)
-        this.reset()
+        super(x, y, w, h, duration, 0.01)
+        this.reset(false)
     }
 
     calc() {
@@ -20,25 +26,26 @@ export default class Particle extends Entity {
         if (this.alpha > 0.8) {
             this.maxed = true
         }
-        // @ts-ignore
-        if (this.y > c.height - 50 || this.x < 0) {
-            this.alpha -= 0.05
-        }
-
         if (this.alpha <= 0.00) {
-            this.reset()
+            if (this.duration === -1) {
+                this.reset(true)
+            }
         }
-
     }
 
-    reset() {
-        // @ts-ignore
-        this.x = Helper.roll(c.width * 1.2)
-        // @ts-ignore
-        this.y = Helper.roll(c.height) - 20
-        this.v.x = Helper.roll(2) -6
-        this.v.y =  Helper.roll(2) +1
-        this.alpha = 0.1;
+    reset(xy: boolean) {
+        if (xy) {
+            // @ts-ignore
+            this.x = Helper.roll(c.width * 1.2)
+            // @ts-ignore
+            this.y = Helper.roll(c.height) - 20
+            this.v.x = Helper.roll(2) - 6
+            this.v.y = Helper.roll(2) + 1
+        } else {
+            this.v.x = -2 + Helper.roll(4)
+            this.v.y = -2 + Helper.roll(4)
+        }
+        this.alpha = 0.1
         this.maxed = false
     }
 
@@ -50,7 +57,8 @@ export default class Particle extends Entity {
     }
 
     onCollide(other: Entity) {
-        this.reset()
+        this.maxed = true;
+        this.alpha -= 0.2
     }
 
 }
