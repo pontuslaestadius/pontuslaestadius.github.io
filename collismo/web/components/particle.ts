@@ -8,6 +8,7 @@ export default class Particle extends Entity {
     h: number
     alpha: number
     maxed: boolean
+    d: number
 
     constructor(
         x: number = 0,
@@ -17,17 +18,19 @@ export default class Particle extends Entity {
         duration: number = -1,
     ) {
         // @ts-ignore
-        super(x, y, w, h, duration, 0.01)
-        this.reset(false)
+        super(Helper.roll(x * 1.2), Helper.roll(y * 1.2), w, h, duration, 0.01)
+        this.d = Helper.roll(1, 10) * 0.01
+        this.reset(true)
     }
 
     calc() {
-        this.alpha -= this.maxed ? 0.01 : -0.01
-        if (this.alpha > 0.8) {
+        const {alpha, maxed, duration, d} = this
+        this.alpha -= maxed ? d : -d
+        if (alpha > 0.8) {
             this.maxed = true
         }
         if (this.alpha <= 0.00) {
-            if (this.duration === -1) {
+            if (duration === -1) {
                 this.reset(true)
             }
         }
@@ -50,15 +53,16 @@ export default class Particle extends Entity {
     }
 
     render(ctx: CanvasRenderingContext2D) {
+        const {alpha, x, y, w, h} = this
         ctx.fillStyle=`rgb(250, 250, 220)`
-        ctx.globalAlpha=this.alpha
-        ctx.fillRect(this.x, this.y, this.w, this.h)
+        ctx.globalAlpha=alpha
+        ctx.fillRect(x, y, w, h)
         ctx.globalAlpha=1
     }
 
-    onCollide(other: Entity) {
+    onCollideHook() {
         this.maxed = true;
-        this.alpha -= 0.2
+        this.alpha -= this.d*2
     }
 
 }

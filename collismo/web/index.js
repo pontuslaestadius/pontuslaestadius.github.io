@@ -30,12 +30,12 @@ function gameloop() {
         })
         .filter(o => o.hasVelocity)
         .forEach(o => {
-            o.collisions = [];
+            o.collisions = []
             qt.query(o)
                 .forEach(b => {
                     if (b.id !== o.id && o.intersects(b)) {
-                        b.outline()
-                        o.outline()
+                        // b.outline()
+                        // o.outline()
                         o.onCollide(b)
                         b.onCollide(o)
                     }
@@ -68,17 +68,16 @@ function gameloop() {
     c2.height = c.height + 130
     background(ctx2, c.width)
 
-    new Player();
+    // new Player();
 
     let size = 20
-    var a = new Entity(0, c.height -size, c.width, size, -1, 100)
-    a.fixed = true
-    a = new Entity(0, 0, size, c.height -size, -1, 100)
-    a.fixed = true
+    new Entity(0, c.height -size, c.width, size, -1, 100, true)
+    new Entity(0, 0, size, c.height -size, -1, 100, true)
 
     for (var i = 0; i < config.weather.max_items; i++) {
         new Weather(c.width, c.height/4)
     }
+
     for (var i = 0; i < config.particles.max_items; i++) {
         new Particle(c.width, c.height)
     }

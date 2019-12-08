@@ -6,7 +6,7 @@ import Helper from './helper'
 
 export default class Player extends Entity {
     constructor() {
-        super(100, 100, 25, 25, -1)
+        super(100, 100, 25, 25, -1, 65)
 
         this.flipH = 1;
         this.ani = 0;
@@ -36,8 +36,8 @@ export default class Player extends Entity {
         this.set_sprite('idle1');
 
         let self = this;
-        window.addEventListener('keydown', (e) => self.keyDown(e), {passive: true});
-        window.addEventListener('keyup', (e) => self.keyUp(e), {passive: true});
+        window.addEventListener('keydown', e => self.keyDown(e), {passive: true});
+        window.addEventListener('keyup', e => self.keyUp(e), {passive: true});
     }
 
     set_sprite(str) {
@@ -63,10 +63,6 @@ export default class Player extends Entity {
         }
         ctx.drawImage(player_sprite, sx, sy, swidth, sheight, Math.floor(x * flipH) - 10, Math.floor(y) - 7, swidth, sheight);
         ctx.restore();
-
-        // Debug:
-        // ctx.fillText(this.v.y, x, y +12);
-        // ctx.fillText(this.v.x, x, y +24);
     }
 
     calc() {

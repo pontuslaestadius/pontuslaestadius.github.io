@@ -20,12 +20,13 @@ export default class Entity extends Boundry {
     y: number
 
     constructor(
-        x: number,
-        y: number,
-        w: number,
-        h: number,
+        x: number = 0,
+        y: number = 0,
+        w: number = 10,
+        h: number = 10,
         duration: number = -1,
         mass: number = 1,
+        fixed: boolean = false,
     ) {
         super(x, y, w, h)
         this.duration = duration
@@ -33,6 +34,7 @@ export default class Entity extends Boundry {
         this.id =  Helper.roll(100000)
         this.infinite = this.duration === -1
         this.mass = mass
+        this.fixed = fixed
         // @ts-ignore
         window.objects.push({object: this})
     }
@@ -56,8 +58,8 @@ export default class Entity extends Boundry {
             return
         }
 
-        this.v.y += 0.5 + 0.01 * (1 + this.mass)
-        this.v.y = Math.max(Math.min(this.v.y, 10), -10)
+        // this.v.y += 0.5 + 0.01 * (1 + this.mass)
+        // this.v.y = Math.max(Math.min(this.v.y, 10), -10)
 
         this.x += Math.floor(this.v.x)
         this.y += Math.floor(this.v.y)
@@ -115,24 +117,46 @@ export default class Entity extends Boundry {
     }
 
     render(ctx: CanvasRenderingContext2D) {
+        // Default render method. Yey/ney?
         // ctx.fillStyle = "rgb(0,0,255)"
         // ctx.fillRect(this.x, this.y, this.w, this.h)
     }
 
+    onCollideHook() {
+
+    }
+
     onCollide(other: Entity) {
+        this.onCollideHook()
 
         if (this.fixed) {
             return
         }
 
+        // @ts-ignore
         const fn: any = (key: any, k2: any) => {
+            // @ts-ignore
+            const deltaMass: number =
+                  Math.max(Math.min(other.mass - this.mass, 5), -5)
+            // @ts-ignore
+            const interSectionDistance: number =
+                  // @ts-ignore
+                  Math.max(Math.min(this[key] + this[k2] - other[key], 25), -25)
+            // @ts-ignore
+            const value: number =
+                  Math.max(Math.min((deltaMass * interSectionDistance) * this.mass, 40), -40)
 
-            const deltaMass = Math.max(Math.min(other.mass - this.mass, 50), -50);
-            const interSectionDistance = this[key] + this[k2] - other[key]
+            console.log(this.w, value)
 
-            this.v[key] -=
-                (deltaMass * interSectionDistance) * 0.1
-        }
+            // @ts-ignore
+            if (this.v[key] > 0) {
+                // @ts-ignore
+                this.v[key] -= value
+            } else {
+                // @ts-ignore
+                this.v[key] += value
+            }
+}
 
         if (this.intersectsY(other)) {
             fn("y", "h")
@@ -141,7 +165,6 @@ export default class Entity extends Boundry {
         if (this.intersectsX(other)) {
             fn("x", "w")
         }
-        console.log(this.v)
 
     }
 
