@@ -41,20 +41,20 @@ export default class QuadTree extends Boundry {
     }
 
     subdivide() {
-        const {x, y, w, h, capacity} = this
-        const tw = w/h
-        const iw = w/tw
+        const { x, y, w, h, capacity } = this
+        const tw = w / h
+        const iw = w / tw
 
         if (tw === 1) {
             this.quadTrees = [
-                new QuadTree(x,     y,     w/2, h/2, capacity),
-                new QuadTree(x+w/2, y,     w/2, h/2, capacity),
-                new QuadTree(x,     y+h/2, w/2, h/2, capacity),
-                new QuadTree(x+w/2, y+h/2, w/2, h/2, capacity)
+                new QuadTree(x, y, w / 2, h / 2, capacity),
+                new QuadTree(x + w / 2, y, w / 2, h / 2, capacity),
+                new QuadTree(x, y + h / 2, w / 2, h / 2, capacity),
+                new QuadTree(x + w / 2, y + h / 2, w / 2, h / 2, capacity)
             ]
         } else {
             for (var i = 0; i < tw; i++) {
-                this.quadTrees.push(new QuadTree(x + i*iw, y, iw, h, capacity))
+                this.quadTrees.push(new QuadTree(x + i * iw, y, iw, h, capacity))
             }
         }
     }
@@ -63,17 +63,29 @@ export default class QuadTree extends Boundry {
         if (!this.points.length) {
             return
         }
-        const {x, y, w, h} = this
+        const { x, y, w, h } = this
         qt_ctx.fillRect(x, y, 1, h)
         qt_ctx.fillRect(x, y, w, 1)
-        qt_ctx.fillRect(x+w-1, y, 1, h)
-        qt_ctx.fillRect(x, y+h-1, w, 1)
+        qt_ctx.fillRect(x + w - 1, y, 1, h)
+        qt_ctx.fillRect(x, y + h - 1, w, 1)
         this.quadTrees.forEach((qt: QuadTree) => {
             qt.render(qt_ctx)
         })
     }
 
-    debugRender(qt_ctx: CanvasRenderingContext2D) {}
+    debugRender(qt_ctx: CanvasRenderingContext2D) {
+        if (!this.points.length) {
+            return
+        }
+        const { x, y, w, h } = this
+        qt_ctx.fillRect(x, y, 1, h)
+        qt_ctx.fillRect(x, y, w, 1)
+        qt_ctx.fillRect(x + w - 1, y, 1, h)
+        qt_ctx.fillRect(x, y + h - 1, w, 1)
+        this.quadTrees.forEach((qt: QuadTree) => {
+            qt.debugRender(qt_ctx)
+        })
+    }
 
     query(range: Boundry): Boundry[] {
         if (!this.intersects(range)) {
@@ -94,21 +106,21 @@ export default class QuadTree extends Boundry {
         }
 
         if (found.length) {
-            const {x, y, w, h} = this
+            const { x, y, w, h } = this
             // @ts-ignore
-            qt_ctx.globalAlpha = 0.3
+            qt_ctx.globalAlpha = 0.1
             // @ts-ignore
-            qt_ctx.fillStyle=`rgb(255,255,255)`
+            qt_ctx.fillStyle = Helper.rgb(255, 255, 255)
             // @ts-ignore
-            qt_ctx.fillText(`${this.points.length}/${this.capacity}`, x+w/2 - 4, y+h/2 + 6)
+            qt_ctx.fillText(`${this.points.length}/${this.capacity}`, x + w / 2 - 4, y + h / 2 + 6)
             // @ts-ignore
-            qt_ctx.fillRect(x,y,w,1)
+            qt_ctx.fillRect(x, y, w, 1)
             // @ts-ignore
-            qt_ctx.fillRect(x,y,1,h)
+            qt_ctx.fillRect(x, y, 1, h)
             // @ts-ignore
-            qt_ctx.fillRect(x,y+h-1,w,1)
+            qt_ctx.fillRect(x, y + h - 1, w, 1)
             // @ts-ignore
-            qt_ctx.fillRect(x+w-1,y,1,h)
+            qt_ctx.fillRect(x + w - 1, y, 1, h)
             // @ts-ignore
             qt_ctx.globalAlpha = 1.0
         }

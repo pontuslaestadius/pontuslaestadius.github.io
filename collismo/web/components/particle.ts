@@ -24,7 +24,7 @@ export default class Particle extends Entity {
     }
 
     calc() {
-        const {alpha, maxed, duration, d} = this
+        const { alpha, maxed, duration, d } = this
         this.alpha -= maxed ? d : -d
         if (alpha > 0.8) {
             this.maxed = true
@@ -53,16 +53,16 @@ export default class Particle extends Entity {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        const {alpha, x, y, w, h} = this
-        ctx.fillStyle=`rgb(250, 250, 220)`
-        ctx.globalAlpha=alpha
+        const { alpha, x, y, w, h } = this
+        ctx.fillStyle = Helper.rgb(250, 250, 220)
+        ctx.globalAlpha = alpha
         ctx.fillRect(x, y, w, h)
-        ctx.globalAlpha=1
+        ctx.globalAlpha = 1
     }
 
     onCollideHook() {
         this.maxed = true;
-        this.alpha -= this.d*2
+        this.alpha -= this.d * 2
     }
 
 }

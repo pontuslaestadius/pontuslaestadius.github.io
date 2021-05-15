@@ -1,10 +1,10 @@
 {
     "fps": 24,
     "weather": {
-        "max_items": 0
+        "max_items": 20
     },
     "particles": {
-        "max_items": 1500
+        "max_items": 20
     },
     "debug": false
 }

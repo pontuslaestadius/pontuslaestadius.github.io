@@ -28,5 +28,5 @@ export default function background(ctx, width = w, dx = 0) {
         'L27',
         'L18',
         'L09',
-    ].forEach((x) => drawer(x));
+    ].forEach((x, i) => drawer(x, i));
 };
